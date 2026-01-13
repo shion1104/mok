@@ -409,12 +409,12 @@ const App = () => {
            <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:40px_40px]"></div>
         </div>
         <div className="container mx-auto px-4 md:px-6 relative z-10">
-          <div className="text-center mb-16">
-            <div className="inline-block mb-4">
-              <div className="w-16 h-1 bg-gradient-to-r from-blue-600 to-blue-400 mx-auto rounded-full"></div>
+          <div className="mb-16">
+            <div className="mb-4">
+              <div className="w-16 h-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full"></div>
             </div>
             <h3 className="text-4xl md:text-5xl font-bold mb-4 text-slate-900 tracking-tight">事業紹介</h3>
-            <p className="text-slate-600 max-w-2xl mx-auto font-medium text-base">
+            <p className="text-slate-600 max-w-2xl font-medium text-base">
               30年以上の実績に基づく、パチンコ業界特化型のリスクマネジメント。
             </p>
           </div>
