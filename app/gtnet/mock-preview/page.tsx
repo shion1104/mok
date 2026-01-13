@@ -410,9 +410,6 @@ const App = () => {
         </div>
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="mb-16">
-            <div className="mb-4">
-              <div className="w-16 h-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full"></div>
-            </div>
             <h3 className="text-4xl md:text-5xl font-bold mb-4 text-slate-900 tracking-tight">事業紹介</h3>
             <p className="text-slate-600 max-w-2xl font-medium text-base">
               30年以上の実績に基づく、パチンコ業界特化型のリスクマネジメント。
