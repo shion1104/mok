@@ -1,0 +1,5 @@
+wordpress/
+scripts/
+exports/
+.git/
+*.log
