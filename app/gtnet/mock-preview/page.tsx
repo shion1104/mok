@@ -114,10 +114,10 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 overflow-x-hidden">
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 overflow-x-hidden m-0 p-0">
       {/* Header */}
       <header className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-sm shadow-md py-2' : 'bg-transparent py-4'}`}>
-        <div className="container mx-auto px-4 flex justify-between items-center">
+        <div className="container mx-auto px-6 flex justify-between items-center">
           <Link href="/" className="flex items-center">
             <img
               src="/logo.png"
@@ -174,7 +174,7 @@ const App = () => {
             {/* Subtle Background Overlay */}
             <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60"></div>
 
-            <div className="container mx-auto px-4 h-full flex flex-col justify-center relative z-20">
+            <div className="container mx-auto px-4 md:px-6 h-full flex flex-col justify-center relative z-20">
               <div className="max-w-4xl">
                 <p className="text-blue-400 font-bold tracking-wider mb-4 text-xs md:text-sm uppercase">{slide.subtitle}</p>
                 <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight mb-6 whitespace-pre-line">
@@ -190,37 +190,39 @@ const App = () => {
         ))}
 
         {/* Carousel Controls */}
-        <div className="absolute bottom-8 md:bottom-12 left-0 w-full z-30">
-          <div className="container mx-auto px-4 flex justify-between items-center">
-            <div className="flex gap-3">
-              <button onClick={prevSlide} className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white flex items-center justify-center hover:bg-white/20 transition-all">
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button onClick={nextSlide} className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white flex items-center justify-center hover:bg-white/20 transition-all">
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
+        <div className="absolute bottom-12 md:bottom-16 left-0 w-full z-30">
+          <div className="container mx-auto px-4 md:px-6">
+            <div className="flex justify-between items-center">
+              <div className="flex gap-4">
+                <button onClick={prevSlide} className="w-12 h-12 rounded-full border border-white/20 text-white flex items-center justify-center hover:bg-white/20 transition-all backdrop-blur-sm">
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+                <button onClick={nextSlide} className="w-12 h-12 rounded-full border border-white/20 text-white flex items-center justify-center hover:bg-white/20 transition-all backdrop-blur-sm">
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+              </div>
 
-            <div className="flex gap-2">
-              {slides.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrentSlide(i)}
-                  className={`h-1.5 rounded-full transition-all ${i === currentSlide ? 'w-8 bg-white' : 'w-2 bg-white/40'}`}
-                />
-              ))}
+              <div className="flex gap-3">
+                {slides.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrentSlide(i)}
+                    className={`h-1.5 rounded-full transition-all ${i === currentSlide ? 'w-12 bg-white' : 'w-4 bg-white/30'}`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Quick Stats Overlay */}
-      <div className="container mx-auto px-4 -mt-12 relative z-40">
+      <div className="container mx-auto px-4 md:px-6 -mt-8 md:-mt-6 relative z-40">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-slate-200 flex flex-col justify-center">
-            <div className="flex items-center gap-2 text-blue-600 mb-3">
+          <div className="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-red-200 flex flex-col justify-center">
+            <div className="flex items-center gap-2 text-red-600 mb-3">
               <AlertTriangle className="w-5 h-5" />
-              <span className="text-xs font-bold tracking-wide text-slate-600">最新状況</span>
+              <span className="text-xs font-bold tracking-wide text-red-600">最新状況</span>
             </div>
             <p className="text-slate-600 text-sm font-medium mb-2">2026年 被害発生件数</p>
             <div className="flex items-baseline gap-2">
@@ -228,10 +230,10 @@ const App = () => {
               <span className="text-slate-500 font-medium text-sm">件</span>
             </div>
           </div>
-          <div className="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-slate-200 flex flex-col justify-center">
+          <div className="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-blue-200 flex flex-col justify-center">
             <div className="flex items-center gap-2 text-blue-600 mb-3">
               <BarChart3 className="w-5 h-5" />
-              <span className="text-xs font-bold tracking-wide text-slate-600">年間集計</span>
+              <span className="text-xs font-bold tracking-wide text-blue-600">年間集計</span>
             </div>
             <p className="text-slate-600 text-sm font-medium mb-2">2025年 被害発生件数</p>
             <div className="flex items-baseline gap-2">
@@ -253,7 +255,7 @@ const App = () => {
       </div>
 
       {/* First Time Visitor Banner */}
-      <div className="container mx-auto px-4 mt-12 mb-8">
+      <div className="container mx-auto px-4 md:px-6 mt-12 mb-8">
         <Link href="/firsttime/" className="group flex flex-col md:flex-row items-center justify-between bg-blue-600 rounded-xl px-8 md:px-10 py-6 md:py-8 border border-blue-700 hover:bg-blue-700 hover:shadow-lg transition-all duration-200">
           <div className="flex items-center gap-5 md:gap-6 w-full md:w-auto">
             <div className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 bg-white/20 rounded-lg flex items-center justify-center">
@@ -277,7 +279,7 @@ const App = () => {
 
       {/* Latest News Section */}
       <section className="py-20 bg-slate-50">
-        <div className="container mx-auto px-4 max-w-7xl">
+        <div className="container mx-auto px-4 md:px-6">
           <div className="flex items-end justify-between mb-12">
             <div>
               <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2 tracking-tight">お知らせ・キャンペーン</h3>
@@ -406,7 +408,7 @@ const App = () => {
         <div className="absolute inset-0 opacity-30 pointer-events-none">
            <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:40px_40px]"></div>
         </div>
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="text-center mb-16">
             <div className="inline-block mb-4">
               <div className="w-16 h-1 bg-gradient-to-r from-blue-600 to-blue-400 mx-auto rounded-full"></div>
@@ -450,7 +452,7 @@ const App = () => {
           <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_80%_20%,rgba(59,130,246,0.2),transparent_50%)]"></div>
         </div>
         
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="flex flex-col lg:flex-row gap-12">
 
             {/* Main News Feed */}
@@ -646,7 +648,7 @@ const App = () => {
 
       {/* Footer */}
       <footer className="bg-slate-950 pt-24 pb-12 text-slate-500">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-20">
             <div>
               <div className="mb-8">
