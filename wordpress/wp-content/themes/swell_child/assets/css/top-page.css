@@ -30,22 +30,23 @@
    ============================================ */
 .top-carousel-mv {
 	position: relative;
-	height: 650px;
+	height: 600px;
 	overflow: hidden;
 	display: flex;
 	align-items: center;
+	background: #0f172a;
 }
 
 @media (min-width: 768px) {
 	.top-carousel-mv {
-		height: 800px;
+		height: 700px;
 	}
 }
 
 .top-carousel-slide {
 	position: absolute;
 	inset: 0;
-	transition: opacity 1s ease-in-out;
+	transition: opacity 0.7s ease-in-out;
 	opacity: 0;
 	z-index: 0;
 	display: flex;
@@ -55,6 +56,13 @@
 .top-carousel-slide.active {
 	opacity: 1;
 	z-index: 10;
+}
+
+.top-carousel-slide__overlay {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.2), rgba(0,0,0,0.6));
+	pointer-events: none;
 }
 
 .top-carousel-slide__visual-elements {
@@ -91,7 +99,7 @@
 
 .top-carousel-controls {
 	position: absolute;
-	bottom: 7rem;
+	bottom: 2rem;
 	left: 0;
 	width: 100%;
 	z-index: 30;
@@ -99,21 +107,23 @@
 
 @media (min-width: 768px) {
 	.top-carousel-controls {
-		bottom: 7rem;
+		bottom: 3rem;
 	}
 }
 
 .top-carousel-btn {
-	width: 3rem;
-	height: 3rem;
-	border-radius: 9999px;
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius: 0.5rem;
 	border: 1px solid rgba(255, 255, 255, 0.2);
 	color: white;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	transition: all 0.3s ease;
-	background: transparent;
+	transition: all 0.2s ease;
+	background: rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
 	cursor: pointer;
 }
 
@@ -125,16 +135,16 @@
 	height: 0.375rem;
 	border-radius: 9999px;
 	transition: all 0.3s ease;
-	width: 1rem;
-	background: rgba(255, 255, 255, 0.3);
+	width: 0.5rem;
+	background: rgba(255, 255, 255, 0.4);
 	border: none;
 	cursor: pointer;
 	padding: 0;
 }
 
 .top-carousel-indicator.active {
-	width: 3rem;
-	background: #3b82f6;
+	width: 2rem;
+	background: white;
 }
 
 /* ============================================
@@ -143,7 +153,7 @@
 .top-stats-overlay {
 	position: relative;
 	z-index: 40;
-	margin-top: -4rem;
+	margin-top: -3rem;
 	margin-bottom: 3rem;
 }
 
@@ -191,36 +201,57 @@
 
 .top-first-time-banner__link {
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
-	background: white;
-	border-radius: 1rem;
+	background: #2563eb;
+	border-radius: 0.75rem;
 	padding: 1.5rem 2rem;
-	border: 1px solid #f1f5f9;
-	transition: all 0.3s ease;
+	border: 1px solid #1d4ed8;
+	transition: all 0.2s ease;
 	text-decoration: none;
 }
 
+@media (min-width: 768px) {
+	.top-first-time-banner__link {
+		flex-direction: row;
+		padding: 2rem 2.5rem;
+	}
+}
+
 .top-first-time-banner__link:hover {
-	border-color: #e2e8f0;
-	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+	background: #1d4ed8;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 .top-first-time-banner__link svg {
-	width: 24px;
-	height: 24px;
+	width: 28px;
+	height: 28px;
 }
 
-.top-first-time-banner__link p {
-	font-size: 1rem;
+@media (min-width: 768px) {
+	.top-first-time-banner__link svg {
+		width: 28px;
+		height: 28px;
+	}
 }
 
 /* ============================================
    統合ニュースフィード
    ============================================ */
 .top-news-feed-section {
-	background: #ffffff;
+	background: linear-gradient(to bottom right, #1e293b, #0f172a, #1e293b);
 	padding: 6rem 0;
+	position: relative;
+	overflow: hidden;
+}
+
+.top-news-feed-section__pattern {
+	position: absolute;
+	inset: 0;
+	opacity: 0.1;
+	pointer-events: none;
+	background: radial-gradient(circle at 80% 20%, rgba(59,130,246,0.2), transparent 50%);
 }
 
 .top-category-tab {
@@ -252,6 +283,24 @@
 	color: white;
 	border-color: #1e40af;
 	box-shadow: 0 4px 6px -1px rgba(30, 64, 175, 0.3);
+}
+
+/* ダークテーマ用カテゴリタブ */
+.top-category-tab--dark {
+	background: rgba(255, 255, 255, 0.1);
+	color: #e2e8f0;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.top-category-tab--dark:hover {
+	background: rgba(255, 255, 255, 0.2);
+}
+
+.top-category-tab--dark.active {
+	background: #2563eb;
+	color: white;
+	border-color: #2563eb;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 .top-subcategory-filter {
@@ -347,11 +396,22 @@
    事業紹介セクション
    ============================================ */
 .top-business-section {
-	background: #ffffff;
+	background: linear-gradient(to bottom right, #f8fafc, #ffffff, #f8fafc);
 	color: #1e293b;
 	padding: 6rem 0;
 	position: relative;
 	overflow: hidden;
+	border-top: 1px solid #e2e8f0;
+	border-bottom: 1px solid #e2e8f0;
+}
+
+.top-business-section__pattern {
+	position: absolute;
+	inset: 0;
+	opacity: 0.3;
+	pointer-events: none;
+	background-image: linear-gradient(to right, #e2e8f0 1px, transparent 1px), linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+	background-size: 40px 40px;
 }
 
 /* ============================================
@@ -524,6 +584,10 @@
 	max-width: 56rem;
 }
 
+.max-w-7xl {
+	max-width: 80rem;
+}
+
 .w-24 {
 	width: 6rem;
 }
@@ -534,6 +598,22 @@
 
 .h-32 {
 	height: 8rem;
+}
+
+.h-64 {
+	height: 16rem;
+}
+
+.h-80 {
+	height: 20rem;
+}
+
+.w-14 {
+	width: 3.5rem;
+}
+
+.h-14 {
+	height: 3.5rem;
 }
 
 .text-xs {
@@ -582,6 +662,26 @@
 
 .text-blue-500 {
 	color: #3b82f6;
+}
+
+.text-blue-50 {
+	color: #eff6ff;
+}
+
+.bg-green-50 {
+	background-color: #f0fdf4;
+}
+
+.text-green-700 {
+	color: #15803d;
+}
+
+.bg-purple-50 {
+	background-color: #faf5ff;
+}
+
+.text-purple-700 {
+	color: #7e22ce;
 }
 
 .text-red-500 {
@@ -889,6 +989,11 @@
 .px-2 {
 	padding-left: 0.5rem;
 	padding-right: 0.5rem;
+}
+
+.px-2\.5 {
+	padding-left: 0.625rem;
+	padding-right: 0.625rem;
 }
 
 .px-3 {
@@ -1314,7 +1419,7 @@
 
 @media (min-width: 768px) {
 	.top-carousel-mv {
-		height: 800px;
+		height: 700px;
 	}
 	
 	.top-stats-overlay {
@@ -1390,6 +1495,14 @@
 	
 	.lg\:grid-cols-5 {
 		grid-template-columns: repeat(5, minmax(0, 1fr));
+	}
+	
+	.lg\:col-span-2 {
+		grid-column: span 2 / span 2;
+	}
+	
+	.lg\:col-span-3 {
+		grid-column: span 3 / span 3;
 	}
 }
 
