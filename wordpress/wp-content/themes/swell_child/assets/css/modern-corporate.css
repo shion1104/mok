@@ -1,0 +1,219 @@
+/* ============================================
+   モダン・コーポレートデザイン用CSS
+   SWELLテーマの「外観 → カスタマイズ → 追加CSS」に貼り付けて使用
+   
+   デザインルール:
+   - 色: 最大3色（白、濃いグレー/ネイビー、アクセント1色）
+   - 影: 控えめ（0 1px 3px rgba(0, 0, 0, 0.1) 程度）
+   - 角丸: ボタン4px以下、カード8px以下
+   - 見出し: すべて同じスタイル（装飾なし）
+   - 余白: 広め（セクション間最低80px）
+   ============================================ */
+
+/* 1. セクション間の余白を広げる（情報を詰めない） */
+.l-mainContent > section,
+.l-mainContent > .c-section {
+	margin-top: 100px; /* 最低80px、推奨100px以上 */
+	margin-bottom: 100px;
+}
+
+@media (max-width: 768px) {
+	.l-mainContent > section,
+	.l-mainContent > .c-section {
+		margin-top: 70px; /* 最低60px、推奨70px以上 */
+		margin-bottom: 70px;
+	}
+}
+
+/* 2. 見出しの余白とスタイル */
+h1, h2, h3, h4, h5, h6 {
+	margin-top: 32px;
+	margin-bottom: 16px;
+	font-weight: 700;
+	line-height: 1.4;
+	color: #1e293b;
+}
+
+h1 {
+	font-size: 2.5rem;
+	margin-top: 0;
+	margin-bottom: 24px;
+}
+
+h2 {
+	font-size: 2rem;
+	margin-top: 48px;
+	margin-bottom: 20px;
+}
+
+h3 {
+	font-size: 1.5rem;
+	margin-top: 32px;
+	margin-bottom: 16px;
+}
+
+/* 見出しの装飾線を削除 */
+h1::before,
+h2::before,
+h3::before,
+h1::after,
+h2::after,
+h3::after {
+	display: none !important;
+}
+
+/* 3. ボタンの角丸を控えめに（4px以下）、影を弱める */
+.wp-block-button__link,
+.is-style-btn_normal,
+.is-style-btn_solid,
+.is-style-btn_shiny,
+.is-style-btn_line {
+	border-radius: 4px !important; /* 最大4px（これ以上はNG） */
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important; /* 控えめな影 */
+	transition: all 0.2s ease;
+}
+
+.wp-block-button__link:hover,
+.is-style-btn_normal:hover,
+.is-style-btn_solid:hover,
+.is-style-btn_shiny:hover,
+.is-style-btn_line:hover {
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12) !important; /* ホバー時も控えめ */
+	transform: translateY(-1px);
+}
+
+/* 4. カードの角丸と影を控えめに（8px以下、影は弱め） */
+.c-card,
+.post-card,
+.wp-block-group {
+	border-radius: 8px !important; /* 最大8px（これ以上はNG） */
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important; /* 控えめな影 */
+}
+
+.c-card:hover,
+.post-card:hover {
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12) !important; /* ホバー時も控えめ */
+	transform: translateY(-2px);
+	transition: all 0.2s ease;
+}
+
+/* 5. 段落の行間を広げる（情報を詰めない） */
+p {
+	line-height: 1.7;
+	margin-bottom: 32px; /* 最低24px、推奨32px */
+}
+
+/* 6. コンテンツ幅と余白（情報を詰めない） */
+.l-mainContent {
+	max-width: 1200px; /* 読みやすさ重視 */
+	margin: 0 auto;
+	padding: 0 48px; /* 最低32px、推奨48px */
+}
+
+@media (max-width: 768px) {
+	.l-mainContent {
+		padding: 0 24px; /* 最低20px、推奨24px */
+	}
+}
+
+/* 7. リンク色の統一 */
+a {
+	color: #2563eb;
+	text-decoration: none;
+	transition: color 0.2s ease;
+}
+
+a:hover {
+	color: #1d4ed8;
+	text-decoration: underline;
+}
+
+/* 8. リストの余白（情報を詰めない） */
+ul, ol {
+	margin-bottom: 32px; /* 最低24px、推奨32px */
+	padding-left: 24px;
+}
+
+li {
+	margin-bottom: 12px; /* 最低8px、推奨12px */
+	line-height: 1.7;
+}
+
+/* 9. 画像の角丸を削除（フラットに） */
+img {
+	border-radius: 0 !important;
+}
+
+/* 10. フッターの整理 */
+footer {
+	background-color: #0f172a;
+	color: #cbd5e1;
+	padding: 60px 0 40px;
+}
+
+footer a {
+	color: #60a5fa;
+}
+
+footer a:hover {
+	color: #93c5fd;
+}
+
+/* 11. ヘッダーのシンプル化 */
+#header {
+	background-color: #ffffff;
+	border-bottom: 1px solid #e2e8f0;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+#header .c-gnav a {
+	color: #1e293b;
+	font-weight: 500;
+}
+
+#header .c-gnav a:hover {
+	color: #2563eb;
+}
+
+/* 12. 全体の影を弱める（フラット化、影を強くしない） */
+* {
+	box-shadow: none !important;
+}
+
+/* ただし、カードとボタンは上記で個別に設定（控えめな影のみ） */
+.c-card,
+.post-card,
+.wp-block-group,
+.wp-block-button__link,
+.is-style-btn_normal,
+.is-style-btn_solid,
+.is-style-btn_shiny,
+.is-style-btn_line {
+	box-shadow: inherit !important;
+}
+
+/* 13. 見出し装飾を統一（すべて同じスタイル、装飾なし） */
+h1::before,
+h2::before,
+h3::before,
+h4::before,
+h5::before,
+h6::before,
+h1::after,
+h2::after,
+h3::after,
+h4::after,
+h5::after,
+h6::after {
+	display: none !important; /* すべての見出し装飾を削除 */
+}
+
+/* 見出しのアイコンや絵文字も削除 */
+h1 svg,
+h2 svg,
+h3 svg,
+h4 svg,
+h5 svg,
+h6 svg {
+	display: none !important;
+}

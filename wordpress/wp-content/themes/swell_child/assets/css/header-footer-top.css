@@ -1,0 +1,110 @@
+/**
+ * トップページ専用ヘッダー・フッタースタイル
+ * Next.jsのpage.tsxから変換
+ */
+
+/* ============================================
+   トップページ専用のヘッダースタイル
+   ============================================ */
+.top-page #header {
+	position: fixed;
+	width: 100%;
+	z-index: 50;
+	transition: all 0.3s ease;
+	background: transparent;
+	backdrop-filter: blur(0);
+	border-bottom: none;
+	box-shadow: none;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+.top-page #header.header-scrolled {
+	background: rgba(255, 255, 255, 0.98) !important;
+	backdrop-filter: blur(10px);
+	box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+	padding-top: 0.75rem;
+	padding-bottom: 0.75rem;
+	border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.top-page #header .l-header__inner {
+	transition: all 0.3s ease;
+}
+
+/* ロゴの色変更（スクロール時に） */
+.top-page #header:not(.header-scrolled) .l-header__logo img {
+	filter: brightness(0) invert(1);
+	transition: filter 0.3s ease;
+}
+
+.top-page #header.header-scrolled .l-header__logo img {
+	filter: none;
+}
+
+/* ナビゲーションのテキスト色変更（スクロール時に） */
+.top-page #header:not(.header-scrolled) .c-gnav a,
+.top-page #header:not(.header-scrolled) .c-gnav__loginBtn,
+.top-page #header:not(.header-scrolled) .c-gnav__registerBtn {
+	color: white !important;
+}
+
+.top-page #header.header-scrolled .c-gnav a,
+.top-page #header.header-scrolled .c-gnav__loginBtn,
+.top-page #header.header-scrolled .c-gnav__registerBtn {
+	color: #0f172a !important;
+	font-weight: 500;
+}
+
+.top-page #header:not(.header-scrolled) .c-gnav a:hover,
+.top-page #header:not(.header-scrolled) .c-gnav__loginBtn:hover {
+	color: #93c5fd !important;
+	transition: color 0.2s ease;
+}
+
+.top-page #header.header-scrolled .c-gnav a:hover,
+.top-page #header.header-scrolled .c-gnav__loginBtn:hover {
+	color: #1e40af !important;
+	transition: color 0.2s ease;
+}
+
+/* モバイルメニューボタンの色変更 */
+.top-page #header:not(.header-scrolled) .c-spMenuBtn {
+	color: white !important;
+}
+
+.top-page #header.header-scrolled .c-spMenuBtn {
+	color: #1e293b !important;
+}
+
+/* メインコンテンツの背景色 */
+.top-page {
+	background: #f8fafc;
+}
+
+/* トップページのメインコンテンツのマージン調整 */
+.top-page.l-mainContent {
+	padding-top: 0;
+}
+
+/* ログインボタンと登録ボタンのスタイル調整 */
+.top-page #header .c-gnav__loginBtn,
+.top-page #header .c-gnav__registerBtn {
+	font-weight: 500;
+	transition: all 0.2s ease;
+}
+
+.top-page #header.header-scrolled .c-gnav__loginBtn,
+.top-page #header.header-scrolled .c-gnav__registerBtn {
+	font-weight: 600;
+}
+
+/* ナビゲーションリンクのスタイル調整 */
+.top-page #header .c-gnav a {
+	font-weight: 500;
+	transition: color 0.2s ease;
+}
+
+.top-page #header.header-scrolled .c-gnav a {
+	font-weight: 500;
+}

@@ -1,0 +1,62 @@
+# Environment
+.env
+
+# WordPress uploads (user content)
+wordpress/wp-content/uploads/
+
+# WordPress languages (auto-downloaded)
+wordpress/wp-content/languages/
+
+# WordPress core (auto-generated, but we track it)
+# Uncomment below if you want to exclude core files
+# wordpress/wp-admin/
+# wordpress/wp-includes/
+# wordpress/wp-*.php
+# wordpress/index.php
+# wordpress/license.txt
+# wordpress/readme.html
+# wordpress/xmlrpc.php
+
+# WordPress config (contains secrets)
+wordpress/wp-config.php
+
+# Debug logs
+wordpress/wp-content/debug.log
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Node (if using build tools)
+node_modules/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Cache
+wordpress/wp-content/cache/
+wordpress/wp-content/advanced-cache.php
+wordpress/wp-content/object-cache.php
+
+# Upgrade files
+wordpress/wp-content/upgrade/
+
+# Plugin/Theme development
+*.zip
+
+# WordPress plugins (third-party)
+wordpress/wp-content/plugins/blocksy-companion/
+wordpress/wp-content/plugins/code-snippets/
+wordpress/wp-content/plugins/elementor/
+
+# WordPress themes (third-party)
+wordpress/wp-content/themes/blocksy/

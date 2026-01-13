@@ -1,0 +1,35 @@
+#main_visual .swiper-slide[data-swiper-slide-index="0"] .p-mainVisual__slideTitle {
+    font-size: 56px;
+    line-height: 1.2;
+    animation: fadeUp .8s ease-out both;
+  }
+  
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .swiper-slide[data-swiper-slide-index="0"] .p-mainVisual__slideText {
+    font-size: 30px;
+    line-height: 1.6;
+  } 
+  /※ここから二枚目/
+  #main_visual .swiper-slide[data-swiper-slide-index="1"] .p-mainVisual__slideTitle {
+    font-size: 480px;          
+    font-weight: 700;         
+    color: hsl(237, 87%, 49%);           
+    letter-spacing: 0.04em;   
+ 
+  } 
+ /* SWELL：ウィジェットタイトル左バー無効化（強制） */
+.c-widgetTitle::before,
+.widget .widget-title::before {
+  display: none !important;
+  content: none !important;
+}
+
