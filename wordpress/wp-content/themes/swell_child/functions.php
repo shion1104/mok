@@ -21,7 +21,7 @@ add_action('wp_enqueue_scripts', function() {
 	/* その他の読み込みファイルはこの下に記述 */
 
 }, 11);
-<?php
+
 // [gt_news_tabs] 最新動向（マーケットニュース/サイト更新情報）タブ + NEW表示
 add_shortcode('gt_news_tabs', function ($atts) {
   $atts = shortcode_atts([
