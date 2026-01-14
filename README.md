@@ -26,7 +26,7 @@ git push origin main
 
 ### GitHub Secrets設定
 
-GitHubリポジトリの **Settings** → **Secrets and variables** → **Actions** で以下を設定してください：
+GitHubリポジトリ（`https://github.com/shion1104/moriwp-deploy`）の **Settings** → **Secrets and variables** → **Actions** で以下を設定してください：
 
 | Secret名 | 説明 | 値 |
 |---------|------|-----|

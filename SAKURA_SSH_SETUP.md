@@ -53,7 +53,7 @@ ssh -i ~/.ssh/id_ed25519_sakura v3@nichicoma.sakura.ne.jp
 
 ### ステップ4: GitHub Secretsに設定
 
-1. GitHubリポジトリ（`shion1104/mok`）を開く
+1. GitHubリポジトリ（`shion1104/moriwp-deploy`）を開く
 2. **Settings** → **Secrets and variables** → **Actions** を開く
 3. 以下のSecretsを設定：
 
