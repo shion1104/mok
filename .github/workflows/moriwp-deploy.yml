@@ -36,10 +36,12 @@ jobs:
           ls -la
           echo "=== wordpress ==="
           ls -la wordpress || true
-          echo "=== wordpress/wp-content ==="
-          ls -la wordpress/wp-content || true
+          echo "=== wordpress/wp-content/themes ==="
+          ls -la wordpress/wp-content/themes || true
+          echo "=== wordpress/wp-content/plugins ==="
+          ls -la wordpress/wp-content/plugins || true
 
-      - name: Package & Upload WordPress
+      - name: Package & Upload WordPress (excluding posts/comments)
         run: |
           set -euo pipefail
           USER_CLEAN="$(printf '%s' "${{ secrets.SAKURA_USER }}" | tr -d '\r\n' | xargs)"
@@ -49,12 +51,27 @@ jobs:
             echo "ERROR: wordpress ディレクトリが存在しません"
             exit 1
           fi
-          # 圧縮（wp-config.phpは除外して、サーバー上のものを保持）
+          # 圧縮（投稿・コメントデータは除外、テーマ・プラグイン・設定ファイルのみ）
           tar -czf wordpress.tar.gz \
             --exclude='wordpress/wp-config.php' \
             --exclude='wordpress/.DS_Store' \
             --exclude='wordpress/wp-content/uploads' \
-            -C . wordpress
+            --exclude='wordpress/wp-content/cache' \
+            --exclude='wordpress/wp-content/upgrade' \
+            --exclude='wordpress/wp-content/backup*' \
+            --exclude='wordpress/wp-content/backups' \
+            --exclude='wordpress/wp-content/debug.log' \
+            --exclude='wordpress/wp-content/advanced-cache.php' \
+            --exclude='wordpress/wp-content/wp-cache-config.php' \
+            -C . wordpress/wp-content/themes \
+            -C . wordpress/wp-content/plugins \
+            -C . wordpress/wp-includes \
+            -C . wordpress/wp-admin \
+            -C . wordpress/wp-*.php \
+            -C . wordpress/xmlrpc.php \
+            -C . wordpress/index.php \
+            -C . wordpress/license.txt \
+            -C . wordpress/readme.html
           # 転送
           ssh "${USER_CLEAN}@${HOST_CLEAN}" "mkdir -p ~/tmp"
           scp wordpress.tar.gz "${USER_CLEAN}@${HOST_CLEAN}:~/tmp/wordpress.tar.gz"
@@ -66,11 +83,9 @@ jobs:
           HOST_CLEAN="$(printf '%s' "${{ secrets.SAKURA_HOST }}" | tr -d '\r\n' | xargs)"
           WP_PATH_CLEAN="$(printf '%s' "${{ secrets.WP_PATH }}" | tr -d '\r\n' | xargs)"
           ssh "${USER_CLEAN}@${HOST_CLEAN}" \
-            "cd ~/www && \
-             mkdir -p wordpress-backup && \
-             cp -r wordpress wordpress-backup/wordpress.backup.\$(date +%Y%m%d_%H%M%S) && \
-             tar -xzf ~/tmp/wordpress.tar.gz -C . && \
-             chmod -R 755 wordpress/ && \
-             chmod 644 wordpress/wp-config.php && \
+            "cd ${WP_PATH_CLEAN} && \
+             tar -xzf ~/tmp/wordpress.tar.gz && \
+             chmod -R 755 wp-content/themes/ wp-content/plugins/ wp-admin/ wp-includes/ && \
+             chmod 644 wp-*.php xmlrpc.php index.php license.txt readme.html 2>/dev/null || true && \
              rm -f ~/tmp/wordpress.tar.gz && \
-             echo 'Deployment completed successfully!'"
+             echo 'Deployment completed successfully! (Posts and comments excluded)'"
