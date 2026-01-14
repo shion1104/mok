@@ -1,0 +1,87 @@
+#!/bin/bash
+# Pre-push hook: SWELL childテーマのデプロイ前チェック
+
+set -e
+
+THEME_PATH="wordpress/wp-content/themes/swell-child"
+ERRORS=0
+
+echo "=========================================="
+echo "Pre-push checks for SWELL child theme"
+echo "=========================================="
+
+# テーマディレクトリ存在チェック
+if [ ! -d "$THEME_PATH" ]; then
+    echo "❌ ERROR: $THEME_PATH が存在しません"
+    exit 1
+fi
+echo "✓ Theme directory exists"
+
+# functions.php存在チェック
+if [ ! -f "$THEME_PATH/functions.php" ]; then
+    echo "❌ ERROR: functions.php が存在しません"
+    exit 1
+fi
+echo "✓ functions.php exists"
+
+# PHP構文チェック
+echo ""
+echo "=== PHP syntax check ==="
+PHP_FILES=$(find "$THEME_PATH" -name "*.php" -type f)
+SYNTAX_ERRORS=0
+
+for file in $PHP_FILES; do
+    if ! php -l "$file" > /dev/null 2>&1; then
+        echo "❌ Syntax error in: $file"
+        php -l "$file" || true
+        SYNTAX_ERRORS=$((SYNTAX_ERRORS + 1))
+    fi
+done
+
+if [ $SYNTAX_ERRORS -gt 0 ]; then
+    echo "❌ ERROR: $SYNTAX_ERRORS 個のPHPファイルに構文エラーがあります"
+    ERRORS=$((ERRORS + 1))
+else
+    echo "✓ All PHP files passed syntax check"
+fi
+
+# 禁止パターンチェック
+echo ""
+echo "=== Pattern check ==="
+
+# <style>タグチェック
+STYLE_TAGS=$(grep -r "<style>" "$THEME_PATH" --include="*.php" 2>/dev/null | wc -l || echo "0")
+if [ "$STYLE_TAGS" -gt 0 ]; then
+    echo "⚠ WARNING: <style>タグが検出されました（通常はCSSファイルに記述）"
+    grep -rn "<style>" "$THEME_PATH" --include="*.php" || true
+fi
+
+# PHP開始タグチェック
+MISSING_PHP_TAG=0
+for file in $PHP_FILES; do
+    if ! head -1 "$file" | grep -q "^<?php"; then
+        echo "❌ ERROR: $file の最初に <?php タグがありません"
+        MISSING_PHP_TAG=$((MISSING_PHP_TAG + 1))
+    fi
+done
+
+if [ $MISSING_PHP_TAG -gt 0 ]; then
+    echo "❌ ERROR: $MISSING_PHP_TAG 個のPHPファイルに <?php タグがありません"
+    ERRORS=$((ERRORS + 1))
+else
+    echo "✓ All PHP files have <?php tag"
+fi
+
+# 結果
+echo ""
+echo "=========================================="
+if [ $ERRORS -eq 0 ]; then
+    echo "✓ All checks passed! Ready to push."
+    echo "=========================================="
+    exit 0
+else
+    echo "❌ $ERRORS 個のエラーが見つかりました"
+    echo "Pushを中止します。エラーを修正してから再度pushしてください。"
+    echo "=========================================="
+    exit 1
+fi

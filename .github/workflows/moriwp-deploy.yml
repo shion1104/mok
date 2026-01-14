@@ -1,12 +1,11 @@
-name: Deploy WordPress to Sakura
+name: Deploy SWELL child to Sakura
 
 on:
   push:
     branches:
       - main
-      - V2
     paths:
-      - 'wordpress/**'
+      - 'wordpress/wp-content/themes/swell-child/**'
       - '.github/workflows/moriwp-deploy.yml'
 
 jobs:
@@ -29,57 +28,66 @@ jobs:
           HOST_CLEAN="$(printf '%s' "${{ secrets.SAKURA_HOST }}" | tr -d '\r\n' | xargs)"
           ssh-keyscan -H "$HOST_CLEAN" >> ~/.ssh/known_hosts
 
-      - name: Debug WordPress folder
-        run: |
-          set -e
-          echo "=== Current directory ==="
-          pwd
-          echo "=== WordPress directory structure ==="
-          ls -la wordpress/ || echo "wordpress directory not found"
-          echo "=== Themes ==="
-          ls -la wordpress/wp-content/themes/ || echo "themes directory not found"
-          echo "=== Plugins ==="
-          ls -la wordpress/wp-content/plugins/ || echo "plugins directory not found"
-
-      - name: Package WordPress files
+      - name: Pre-deployment checks
         run: |
           set -euo pipefail
-          # WordPressディレクトリ存在チェック
-          if [ ! -d "wordpress" ]; then
-            echo "ERROR: wordpress ディレクトリが存在しません"
+          echo "=== Pre-deployment checks ==="
+          
+          # テーマディレクトリ存在チェック
+          if [ ! -d "wordpress/wp-content/themes/swell-child" ]; then
+            echo "ERROR: wordpress/wp-content/themes/swell-child が存在しません"
             exit 1
           fi
-          # テーマとプラグインのみを圧縮（投稿・コメントはデータベースにあるため除外不要）
-          cd wordpress
-          tar -czf ../wordpress-deploy.tar.gz \
-            --exclude='wp-config.php' \
-            --exclude='.DS_Store' \
-            --exclude='wp-content/uploads' \
-            --exclude='wp-content/cache' \
-            --exclude='wp-content/upgrade' \
-            --exclude='wp-content/backup*' \
-            --exclude='wp-content/backups' \
-            --exclude='wp-content/debug.log' \
-            --exclude='wp-content/advanced-cache.php' \
-            --exclude='wp-content/wp-cache-config.php' \
-            --exclude='wp-content/blogs.dir' \
-            --exclude='wp-content/upgrade-temp-backup' \
-            wp-content/themes \
-            wp-content/plugins
-          cd ..
-          echo "Package created: wordpress-deploy.tar.gz"
-          ls -lh wordpress-deploy.tar.gz
+          echo "✓ Theme directory exists"
+          
+          # functions.php存在チェック
+          if [ ! -f "wordpress/wp-content/themes/swell-child/functions.php" ]; then
+            echo "ERROR: functions.php が存在しません"
+            exit 1
+          fi
+          echo "✓ functions.php exists"
+          
+          # PHP構文チェック
+          echo "=== PHP syntax check ==="
+          if ! php -l wordpress/wp-content/themes/swell-child/functions.php; then
+            echo "ERROR: functions.php に構文エラーがあります"
+            exit 1
+          fi
+          echo "✓ PHP syntax check passed"
+          
+          # 禁止パターンチェック
+          echo "=== Pattern check ==="
+          if grep -r "<style>" wordpress/wp-content/themes/swell-child/ --include="*.php" 2>/dev/null; then
+            echo "WARNING: <style>タグが検出されました（通常はCSSファイルに記述）"
+          fi
+          
+          # PHP開始タグチェック
+          PHP_FILES=$(find wordpress/wp-content/themes/swell-child -name "*.php" -type f)
+          for file in $PHP_FILES; do
+            if ! head -1 "$file" | grep -q "^<?php"; then
+              echo "WARNING: $file の最初に <?php タグがありません"
+            fi
+          done
+          echo "✓ Pattern check completed"
+
+      - name: Package theme
+        run: |
+          set -euo pipefail
+          echo "=== Packaging theme ==="
+          cd wordpress/wp-content/themes
+          tar -czf ../../../swell-child.tar.gz swell-child
+          cd ../../..
+          echo "Package created: swell-child.tar.gz"
+          ls -lh swell-child.tar.gz
 
       - name: Upload to server
         run: |
           set -euo pipefail
           USER_CLEAN="$(printf '%s' "${{ secrets.SAKURA_USER }}" | tr -d '\r\n' | xargs)"
           HOST_CLEAN="$(printf '%s' "${{ secrets.SAKURA_HOST }}" | tr -d '\r\n' | xargs)"
-          # 一時ディレクトリを作成
           ssh "${USER_CLEAN}@${HOST_CLEAN}" "mkdir -p ~/tmp"
-          # ファイルを転送
-          scp wordpress-deploy.tar.gz "${USER_CLEAN}@${HOST_CLEAN}:~/tmp/wordpress-deploy.tar.gz"
-          echo "File uploaded successfully"
+          scp swell-child.tar.gz "${USER_CLEAN}@${HOST_CLEAN}:~/tmp/swell-child.tar.gz"
+          echo "✓ File uploaded successfully"
 
       - name: Deploy on server
         run: |
@@ -88,46 +96,65 @@ jobs:
           HOST_CLEAN="$(printf '%s' "${{ secrets.SAKURA_HOST }}" | tr -d '\r\n' | xargs)"
           WP_PATH_CLEAN="$(printf '%s' "${{ secrets.WP_PATH }}" | tr -d '\r\n' | xargs)"
           
-          ssh "${USER_CLEAN}@${HOST_CLEAN}" << 'DEPLOY_SCRIPT'
+          ssh "${USER_CLEAN}@${HOST_CLEAN}" << DEPLOY_SCRIPT
             set -euo pipefail
             WP_PATH="${WP_PATH_CLEAN}"
             
-            echo "=== Current directory ==="
-            pwd
+            echo "=== Server-side checks ==="
             
-            echo "=== WordPress path ==="
-            echo "${WP_PATH}"
-            
-            echo "=== Checking WordPress directory ==="
-            if [ ! -d "${WP_PATH}" ]; then
-              echo "ERROR: WordPress directory not found: ${WP_PATH}"
+            # WP_PATHがWordPressルートか確認
+            if [ ! -d "\${WP_PATH}/wp-content" ]; then
+              echo "ERROR: \${WP_PATH}/wp-content が存在しません"
+              echo "WP_PATHが正しいWordPressルートか確認してください: \${WP_PATH}"
               exit 1
             fi
+            echo "✓ WordPress root confirmed: \${WP_PATH}"
             
-            cd "${WP_PATH}"
+            # テーマディレクトリのパス
+            THEME_PATH="\${WP_PATH}/wp-content/themes/swell-child"
             
             echo "=== Creating backup ==="
-            BACKUP_DIR="wordpress-backup-$(date +%Y%m%d_%H%M%S)"
-            mkdir -p "${BACKUP_DIR}"
-            if [ -d "wp-content/themes" ]; then
-              cp -r wp-content/themes "${BACKUP_DIR}/themes" || true
+            if [ -d "\${THEME_PATH}" ]; then
+              BACKUP_DIR="\${WP_PATH}/wp-content/themes/swell-child.backup.\$(date +%Y%m%d_%H%M%S)"
+              cp -r "\${THEME_PATH}" "\${BACKUP_DIR}"
+              echo "✓ Backup created: \${BACKUP_DIR}"
+            else
+              echo "ℹ No existing theme to backup"
             fi
-            if [ -d "wp-content/plugins" ]; then
-              cp -r wp-content/plugins "${BACKUP_DIR}/plugins" || true
-            fi
-            echo "Backup created: ${BACKUP_DIR}"
             
-            echo "=== Extracting files ==="
-            tar -xzf ~/tmp/wordpress-deploy.tar.gz
+            echo "=== Removing old theme ==="
+            rm -rf "\${THEME_PATH}"
+            echo "✓ Old theme removed"
+            
+            echo "=== Extracting theme ==="
+            mkdir -p "\${WP_PATH}/wp-content/themes"
+            tar -xzf ~/tmp/swell-child.tar.gz -C "\${WP_PATH}/wp-content/themes"
+            echo "✓ Theme extracted"
             
             echo "=== Setting permissions ==="
-            chmod -R 755 wp-content/themes/ 2>/dev/null || true
-            chmod -R 755 wp-content/plugins/ 2>/dev/null || true
+            chmod -R 755 "\${THEME_PATH}"
+            chmod 644 "\${THEME_PATH}/functions.php" 2>/dev/null || true
+            echo "✓ Permissions set"
+            
+            echo "=== Verifying deployment ==="
+            if [ ! -d "\${THEME_PATH}" ]; then
+              echo "ERROR: テーマが正しく展開されていません"
+              exit 1
+            fi
+            if [ ! -f "\${THEME_PATH}/functions.php" ]; then
+              echo "ERROR: functions.php が見つかりません"
+              exit 1
+            fi
+            echo "✓ Deployment verified"
             
             echo "=== Cleaning up ==="
-            rm -f ~/tmp/wordpress-deploy.tar.gz
+            rm -f ~/tmp/swell-child.tar.gz
             
-            echo "=== Deployment completed successfully! ==="
-            echo "Themes and plugins have been updated."
-            echo "Posts and comments in the database are not affected."
+            echo ""
+            echo "=========================================="
+            echo "Deployment completed successfully!"
+            echo "=========================================="
+            echo "Theme path: \${THEME_PATH}"
+            echo "Backup: \${BACKUP_DIR:-N/A}"
+            echo "=========================================="
           DEPLOY_SCRIPT

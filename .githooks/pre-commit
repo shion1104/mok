@@ -1,0 +1,35 @@
+#!/bin/bash
+# Pre-commit hook: SWELL childテーマのコミット前チェック
+
+set -e
+
+THEME_PATH="wordpress/wp-content/themes/swell-child"
+
+# テーマファイルが変更されている場合のみチェック
+if git diff --cached --name-only | grep -q "^wordpress/wp-content/themes/swell-child/"; then
+    echo "=========================================="
+    echo "Pre-commit checks for SWELL child theme"
+    echo "=========================================="
+    
+    # PHP構文チェック（変更されたファイルのみ）
+    CHANGED_PHP_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep "^wordpress/wp-content/themes/swell-child/.*\.php$" || true)
+    
+    if [ -n "$CHANGED_PHP_FILES" ]; then
+        echo "=== PHP syntax check (changed files) ==="
+        for file in $CHANGED_PHP_FILES; do
+            if [ -f "$file" ]; then
+                if ! php -l "$file" > /dev/null 2>&1; then
+                    echo "❌ Syntax error in: $file"
+                    php -l "$file" || true
+                    exit 1
+                fi
+            fi
+        done
+        echo "✓ Changed PHP files passed syntax check"
+    fi
+    
+    echo "✓ Pre-commit checks passed"
+    echo "=========================================="
+fi
+
+exit 0
