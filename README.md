@@ -33,7 +33,7 @@ GitHubリポジトリの **Settings** → **Secrets and variables** → **Action
 | `SAKURA_SSH_KEY` | SSH秘密鍵の内容 | `-----BEGIN OPENSSH PRIVATE KEY-----...`（後述の手順で生成） |
 | `SAKURA_HOST` | サーバーのホスト名 | `nichicoma.sakura.ne.jp` |
 | `SAKURA_USER` | SSH接続ユーザー名 | `v3` |
-| `WP_PATH` | WordPressのルートパス | `~/www` または `/home/v3/www` |
+| `WP_PATH` | WordPressのルートパス | `~/www/v3` または `/home/v3/www/v3` |
 
 **SSH鍵の生成と設定：**
 
@@ -89,10 +89,12 @@ git config core.hooksPath .githooks
 1. サーバーにSSH接続してWordPressのルートパスを確認：
    ```bash
    ssh v3@nichicoma.sakura.ne.jp
-   cd ~/www
+   cd ~/www/v3
    ls -la wp-content  # これが存在することを確認
    ```
-2. GitHub Secretsの`WP_PATH`を正しいパスに更新（例: `~/www` または `/home/v3/www`）
+2. GitHub Secretsの`WP_PATH`を正しいパスに更新（例: `~/www/v3` または `/home/v3/www/v3`）
+   
+   **注意**: WordPressのURLが `https://nichicoma.sakura.ne.jp/v3/` の場合、パスは `~/www/v3` になります
 
 ### 2. テーマ名が違う
 
