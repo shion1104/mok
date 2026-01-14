@@ -32,28 +32,26 @@ jobs:
       - name: Debug WordPress folder
         run: |
           set -e
-          echo "=== root ==="
-          ls -la
-          echo "=== wordpress ==="
-          ls -la wordpress || true
-          echo "=== wordpress/wp-content/themes ==="
-          ls -la wordpress/wp-content/themes || true
-          echo "=== wordpress/wp-content/plugins ==="
-          ls -la wordpress/wp-content/plugins || true
+          echo "=== Current directory ==="
+          pwd
+          echo "=== WordPress directory structure ==="
+          ls -la wordpress/ || echo "wordpress directory not found"
+          echo "=== Themes ==="
+          ls -la wordpress/wp-content/themes/ || echo "themes directory not found"
+          echo "=== Plugins ==="
+          ls -la wordpress/wp-content/plugins/ || echo "plugins directory not found"
 
-      - name: Package & Upload WordPress (excluding posts/comments)
+      - name: Package WordPress files
         run: |
           set -euo pipefail
-          USER_CLEAN="$(printf '%s' "${{ secrets.SAKURA_USER }}" | tr -d '\r\n' | xargs)"
-          HOST_CLEAN="$(printf '%s' "${{ secrets.SAKURA_HOST }}" | tr -d '\r\n' | xargs)"
           # WordPressディレクトリ存在チェック
           if [ ! -d "wordpress" ]; then
             echo "ERROR: wordpress ディレクトリが存在しません"
             exit 1
           fi
-          # 圧縮（投稿・コメントデータは除外、テーマ・プラグイン・コアファイルのみ）
+          # テーマとプラグインのみを圧縮（投稿・コメントはデータベースにあるため除外不要）
           cd wordpress
-          tar -czf ../wordpress.tar.gz \
+          tar -czf ../wordpress-deploy.tar.gz \
             --exclude='wp-config.php' \
             --exclude='.DS_Store' \
             --exclude='wp-content/uploads' \
@@ -64,30 +62,72 @@ jobs:
             --exclude='wp-content/debug.log' \
             --exclude='wp-content/advanced-cache.php' \
             --exclude='wp-content/wp-cache-config.php' \
+            --exclude='wp-content/blogs.dir' \
+            --exclude='wp-content/upgrade-temp-backup' \
             wp-content/themes \
-            wp-content/plugins \
-            wp-includes \
-            wp-admin \
-            wp-*.php \
-            xmlrpc.php \
-            index.php \
-            license.txt \
-            readme.html
+            wp-content/plugins
           cd ..
-          # 転送
-          ssh "${USER_CLEAN}@${HOST_CLEAN}" "mkdir -p ~/tmp"
-          scp wordpress.tar.gz "${USER_CLEAN}@${HOST_CLEAN}:~/tmp/wordpress.tar.gz"
+          echo "Package created: wordpress-deploy.tar.gz"
+          ls -lh wordpress-deploy.tar.gz
 
-      - name: Extract on server
+      - name: Upload to server
+        run: |
+          set -euo pipefail
+          USER_CLEAN="$(printf '%s' "${{ secrets.SAKURA_USER }}" | tr -d '\r\n' | xargs)"
+          HOST_CLEAN="$(printf '%s' "${{ secrets.SAKURA_HOST }}" | tr -d '\r\n' | xargs)"
+          # 一時ディレクトリを作成
+          ssh "${USER_CLEAN}@${HOST_CLEAN}" "mkdir -p ~/tmp"
+          # ファイルを転送
+          scp wordpress-deploy.tar.gz "${USER_CLEAN}@${HOST_CLEAN}:~/tmp/wordpress-deploy.tar.gz"
+          echo "File uploaded successfully"
+
+      - name: Deploy on server
         run: |
           set -euo pipefail
           USER_CLEAN="$(printf '%s' "${{ secrets.SAKURA_USER }}" | tr -d '\r\n' | xargs)"
           HOST_CLEAN="$(printf '%s' "${{ secrets.SAKURA_HOST }}" | tr -d '\r\n' | xargs)"
           WP_PATH_CLEAN="$(printf '%s' "${{ secrets.WP_PATH }}" | tr -d '\r\n' | xargs)"
-          ssh "${USER_CLEAN}@${HOST_CLEAN}" \
-            "cd ${WP_PATH_CLEAN} && \
-             tar -xzf ~/tmp/wordpress.tar.gz && \
-             chmod -R 755 wp-content/themes/ wp-content/plugins/ wp-admin/ wp-includes/ && \
-             chmod 644 wp-*.php xmlrpc.php index.php license.txt readme.html 2>/dev/null || true && \
-             rm -f ~/tmp/wordpress.tar.gz && \
-             echo 'Deployment completed successfully! (Posts and comments excluded)'"
+          
+          ssh "${USER_CLEAN}@${HOST_CLEAN}" << 'DEPLOY_SCRIPT'
+            set -euo pipefail
+            WP_PATH="${WP_PATH_CLEAN}"
+            
+            echo "=== Current directory ==="
+            pwd
+            
+            echo "=== WordPress path ==="
+            echo "${WP_PATH}"
+            
+            echo "=== Checking WordPress directory ==="
+            if [ ! -d "${WP_PATH}" ]; then
+              echo "ERROR: WordPress directory not found: ${WP_PATH}"
+              exit 1
+            fi
+            
+            cd "${WP_PATH}"
+            
+            echo "=== Creating backup ==="
+            BACKUP_DIR="wordpress-backup-$(date +%Y%m%d_%H%M%S)"
+            mkdir -p "${BACKUP_DIR}"
+            if [ -d "wp-content/themes" ]; then
+              cp -r wp-content/themes "${BACKUP_DIR}/themes" || true
+            fi
+            if [ -d "wp-content/plugins" ]; then
+              cp -r wp-content/plugins "${BACKUP_DIR}/plugins" || true
+            fi
+            echo "Backup created: ${BACKUP_DIR}"
+            
+            echo "=== Extracting files ==="
+            tar -xzf ~/tmp/wordpress-deploy.tar.gz
+            
+            echo "=== Setting permissions ==="
+            chmod -R 755 wp-content/themes/ 2>/dev/null || true
+            chmod -R 755 wp-content/plugins/ 2>/dev/null || true
+            
+            echo "=== Cleaning up ==="
+            rm -f ~/tmp/wordpress-deploy.tar.gz
+            
+            echo "=== Deployment completed successfully! ==="
+            echo "Themes and plugins have been updated."
+            echo "Posts and comments in the database are not affected."
+          DEPLOY_SCRIPT
