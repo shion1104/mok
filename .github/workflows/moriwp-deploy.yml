@@ -1,0 +1,43 @@
+name: Deploy WordPress to Sakura Server (moriwp)
+
+on:
+  push:
+    branches:
+      - main
+      - V2
+    paths:
+      - 'wordpress/**'
+      - '.github/workflows/moriwp-deploy.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Deploy to Sakura Server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SAKURA_HOST }}
+          username: ${{ secrets.SAKURA_USERNAME }}
+          key: ${{ secrets.SAKURA_SSH_KEY }}
+          port: ${{ secrets.SAKURA_PORT || 22 }}
+          source: "wordpress/*"
+          target: "~/www/wordpress/"
+          strip_components: 1
+          rm: false
+      
+      - name: Set permissions on Sakura Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SAKURA_HOST }}
+          username: ${{ secrets.SAKURA_USERNAME }}
+          key: ${{ secrets.SAKURA_SSH_KEY }}
+          port: ${{ secrets.SAKURA_PORT || 22 }}
+          script: |
+            cd ~/www
+            chmod -R 755 wordpress/
+            chmod 644 wordpress/wp-config.php
+            echo "Deployment to moriwp completed successfully!"
