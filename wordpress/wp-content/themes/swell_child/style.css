@@ -1,0 +1,2524 @@
+/*
+Theme Name: SWELL Child
+Description: SWELLの子テーマ
+Template: swell
+Version: 1.0.0
+*/
+
+/* ローカル環境の余白をなくす（四隅の余白のみ削除） */
+html, body {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+/* ページ全体の外側の余白を削除（コンテンツ内の余白は保持） */
+#main-content {
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+}
+
+/* #content と .l-content の余白を削除 */
+#content,
+.l-content {
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+/* main と footer の間の余白を削除 */
+.gtnet-home + footer,
+#main-content + footer,
+main + footer,
+.gtnet-home ~ footer {
+	margin-top: 0 !important;
+	padding-top: 0 !important;
+}
+
+/* GT-NETホームページ用のコンテナ調整 */
+.gtnet-home {
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+	max-width: 100% !important;
+}
+
+/* コンテナの左右の外側余白を削除（内部パディングは保持） */
+.l-container {
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	max-width: 100% !important;
+	/* 内部パディングは保持（必要に応じて調整） */
+}
+
+/* GT-NETホームページ内のコンテナは通常通り（内部パディングは保持） */
+.gtnet-home .container {
+	margin-left: auto !important;
+	margin-right: auto !important;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	max-width: 1280px;
+	display: block !important;
+	text-align: left;
+}
+
+/* 最新情報セクションのスタイリング */
+.gtnet-home section:has(.gtnet-news-filter) {
+	padding-top: 6rem !important;
+	padding-bottom: 6rem !important;
+}
+
+/* 最新情報セクションのコンテナ */
+.gtnet-home section:has(.gtnet-news-filter) .container {
+	max-width: 1280px !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+
+/* ニュースフィルターボタンのスタイリング */
+.gtnet-news-filter {
+	cursor: pointer;
+}
+
+.gtnet-news-filter.bg-blue-600 {
+	background-color: #2563eb !important;
+	color: #ffffff !important;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* ニュースアイテムのスタイリング */
+.gtnet-news-item {
+	text-decoration: none !important;
+}
+
+.gtnet-news-item:hover {
+	text-decoration: none !important;
+}
+
+/* ニュースアイテムの日付部分 */
+.gtnet-news-item .flex-shrink-0.flex.flex-col {
+	min-width: 96px;
+}
+
+/* ニュースアイテムのバッジ部分 */
+.gtnet-news-item .flex.flex-wrap.items-center.gap-2 {
+	display: flex !important;
+	flex-wrap: wrap !important;
+	align-items: center !important;
+	gap: 0.5rem !important;
+	margin-bottom: 0.5rem !important;
+}
+
+/* ニュースアイテムのタイトル */
+.gtnet-news-item h4 {
+	margin: 0 !important;
+}
+
+/* ニュースアイテムの矢印アイコン */
+.gtnet-news-item .w-10.h-10.rounded-full {
+	width: 2.5rem !important;
+	height: 2.5rem !important;
+	border-radius: 9999px !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+}
+
+/* サイドバーカードのスタイリング */
+.gtnet-home section:has(.gtnet-news-filter) .space-y-6 > * {
+	margin-bottom: 1.5rem !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .space-y-6 > *:last-child {
+	margin-bottom: 0 !important;
+}
+
+/* はじめての方へバナーのコンテナを中央揃え */
+.gtnet-firsttime-container {
+	margin-left: auto !important;
+	margin-right: auto !important;
+	max-width: 1280px !important;
+	display: block !important;
+	width: 100% !important;
+}
+
+/* はじめての方へバナーのレイアウト調整 */
+.gtnet-firsttime-banner {
+	display: flex !important;
+	flex-direction: column !important;
+	align-items: stretch !important;
+}
+
+@media (min-width: 768px) {
+	.gtnet-firsttime-banner {
+		flex-direction: row !important;
+		align-items: center !important;
+		justify-content: space-between !important;
+	}
+	
+	.gtnet-firsttime-banner > div:nth-child(2) {
+		flex: 1 1 0% !important;
+		display: flex !important;
+		justify-content: center !important;
+		align-items: center !important;
+	}
+}
+
+/* はじめての方へバナーのコンテナを中央揃え */
+.gtnet-home .container:has(.group.flex.flex-col.md\:flex-row.items-center.justify-between.bg-blue-600) {
+	margin-left: auto !important;
+	margin-right: auto !important;
+	max-width: 1280px !important;
+	display: block !important;
+}
+
+/* GT-NETホームページ内のセクションの外側余白を削除 */
+.gtnet-home > section,
+.gtnet-home > div {
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+
+/* セクション内のコンテナは中央揃えで内部パディングを保持 */
+.gtnet-home section .container,
+.gtnet-home div .container {
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+
+@media (min-width: 768px) {
+	.gtnet-home section .container,
+	.gtnet-home div .container {
+		padding-left: 1.5rem;
+		padding-right: 1.5rem;
+	}
+}
+
+/* ヘッダーとフッターの左右の外側余白を削除 */
+.l-header,
+.l-footer {
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	/* 内部パディングは保持 */
+}
+
+/* box-sizingは全要素に適用（これは問題なし） */
+* {
+	box-sizing: border-box;
+}
+
+/* GT-NET モックプレビューのスタイル */
+.gtnet-home {
+	min-height: 100vh;
+	background-color: #f8fafc;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	color: #0f172a;
+	overflow-x: hidden;
+	margin: 0 !important;
+	padding: 0 !important;
+	width: 100% !important;
+	max-width: 100% !important;
+}
+
+/* GT-NETホームページの親要素の余白を削除 */
+body .gtnet-home,
+#content .gtnet-home,
+.l-content .gtnet-home,
+.l-container .gtnet-home {
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+	max-width: 100% !important;
+}
+
+/* カルーセルセクションを全幅表示 */
+.gtnet-home > section:first-child,
+.gtnet-carousel {
+	width: 100vw !important;
+	position: relative !important;
+	left: 50% !important;
+	right: 50% !important;
+	margin-left: -50vw !important;
+	margin-right: -50vw !important;
+	max-width: none !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+
+/* カルーセル内のコンテンツは中央揃え */
+.gtnet-carousel .container {
+	max-width: 1280px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+
+/* カルーセル内のコンテンツを中央に配置（モックに合わせる） */
+.gtnet-carousel .container.flex.flex-col,
+.gtnet-carousel-slide .container.flex.flex-col,
+.gtnet-carousel .container.mx-auto.px-4.flex.flex-col,
+.gtnet-carousel-slide .container.mx-auto.px-4.flex.flex-col,
+.gtnet-carousel .container.mx-auto.px-4.md\:px-6.flex.flex-col,
+.gtnet-carousel-slide .container.mx-auto.px-4.md\:px-6.flex.flex-col {
+	justify-content: center !important;
+	padding-bottom: 0 !important;
+}
+
+/* Tailwindのjustify-centerクラスを確実に上書き */
+.gtnet-carousel .justify-center,
+.gtnet-carousel-slide .justify-center,
+.gtnet-carousel .container.justify-center,
+.gtnet-carousel-slide .container.justify-center {
+	justify-content: center !important;
+}
+
+/* タイトルブロックの縦方向位置調整（ヘッダーと被らないようにする） */
+.gtnet-carousel-slide .container.flex.flex-col .max-w-4xl {
+	margin-top: 4.5rem !important; /* モバイル: もう少しだけ下げる */
+}
+
+@media (min-width: 768px) {
+	.gtnet-carousel-slide .container.flex.flex-col .max-w-4xl {
+		margin-top: 6rem !important; /* デスクトップ: もう少しだけ下げる */
+	}
+}
+
+/* サブタイトル（text-blue-400）の位置調整 */
+.gtnet-carousel-slide .container.flex.flex-col .max-w-4xl > p.text-blue-400 {
+	margin-bottom: 1.25rem !important; /* サブタイトルとタイトルの間隔を調整 */
+	margin-top: 0 !important;
+}
+
+/* タイトル（h2）の位置調整（行間は共通ユーティリティに任せる） */
+.gtnet-carousel-slide .container.flex.flex-col .max-w-4xl > h2 {
+	margin-bottom: 1.5rem !important; /* タイトルと説明文の間隔 */
+	margin-top: 0 !important;
+}
+
+@media (min-width: 768px) {
+	.gtnet-carousel-slide .container.flex.flex-col .max-w-4xl > h2 {
+		margin-bottom: 2rem !important; /* デスクトップでは少し多めに */
+	}
+}
+
+/* 説明文（p）の位置調整 */
+.gtnet-carousel-slide .container.flex.flex-col .max-w-4xl > p.text-white {
+	margin-bottom: 0 !important;
+	margin-top: 0 !important;
+}
+
+/* カルーセル内のh2のspan（強調部分）のスタイル */
+.gtnet-carousel h2 span.text-blue-400 {
+	color: #60a5fa !important;
+}
+
+/* 親要素の影響を受けないように */
+#content.gtnet-home,
+body .gtnet-home {
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+	max-width: 100% !important;
+}
+
+/* カルーセル */
+.gtnet-carousel {
+	position: relative;
+	height: 600px;
+	display: flex;
+	align-items: center !important; /* モックに合わせて中央配置 */
+	overflow: hidden;
+	background-color: #0f172a;
+	width: 100%;
+	margin-left: 0;
+	margin-right: 0;
+	margin-top: 0 !important;
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 7rem !important; /* ヘッダーとの被りを防ぐため、適切な余白を確保 */
+	padding-bottom: 0 !important;
+}
+
+@media (min-width: 768px) {
+	.gtnet-carousel {
+		height: 700px;
+		padding-top: 7.5rem !important; /* デスクトップでもヘッダーとの被りを防ぐため、適切な余白を確保 */
+	}
+}
+
+.gtnet-carousel-slide {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	transition: opacity 0.7s ease-in-out;
+}
+
+.gtnet-carousel-slide.opacity-100 {
+	opacity: 1;
+	z-index: 10;
+}
+
+.gtnet-carousel-slide.opacity-0 {
+	opacity: 0;
+	z-index: 0;
+}
+
+/* 統計カード */
+.gtnet-stats {
+	margin-top: -2rem;
+	position: relative;
+	z-index: 40;
+}
+
+@media (min-width: 768px) {
+	.gtnet-stats {
+		margin-top: -1.5rem;
+	}
+}
+
+/* コンテナ */
+.container {
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	max-width: 100%;
+}
+
+@media (min-width: 640px) {
+	.container {
+		max-width: 640px;
+	}
+}
+
+@media (min-width: 768px) {
+	.container {
+		max-width: 768px;
+		padding-left: 1.5rem;
+		padding-right: 1.5rem;
+	}
+}
+
+@media (min-width: 1024px) {
+	.container {
+		max-width: 1024px;
+	}
+}
+
+@media (min-width: 1280px) {
+	.container {
+		max-width: 1280px;
+	}
+}
+
+@media (min-width: 1536px) {
+	.container {
+		max-width: 1536px;
+	}
+}
+
+/* ユーティリティクラス */
+.grid {
+	display: grid;
+}
+
+.grid-cols-1 {
+	grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@media (min-width: 768px) {
+	.md\:grid-cols-3 {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+/* 統計カードのコンテナ（カルーセルに被せる） */
+.gtnet-stats-container {
+	max-width: 1280px !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+	width: 100% !important;
+	margin-top: -2rem;
+	position: relative;
+	z-index: 40;
+	display: block !important;
+	text-align: center !important;
+}
+
+@media (min-width: 768px) {
+	.gtnet-stats-container {
+		margin-top: -1.5rem;
+	}
+}
+
+/* 統計カードのグリッドを中央揃え */
+.gtnet-stats-grid {
+	display: grid !important;
+	grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+	gap: 1rem !important;
+	width: 100% !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+	justify-content: center !important;
+}
+
+@media (min-width: 768px) {
+	.gtnet-stats-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+		max-width: 100% !important;
+	}
+}
+
+
+/* 統計カードの幅を制限 */
+.gtnet-stats-grid > div {
+	min-width: 0;
+	max-width: 100%;
+	width: 100%;
+	flex: 1 1 0%;
+	box-sizing: border-box;
+}
+
+.gap-4 {
+	gap: 1rem;
+}
+
+.flex {
+	display: flex;
+}
+
+.items-center {
+	align-items: center;
+}
+
+.justify-center {
+	justify-content: center;
+}
+
+/* カルーセル内のjustify-centerは確実に中央配置 */
+.gtnet-carousel .justify-center,
+.gtnet-carousel-slide .justify-center {
+	justify-content: center !important;
+}
+
+.justify-between {
+	justify-content: space-between;
+}
+
+.flex-col {
+	flex-direction: column;
+}
+
+.relative {
+	position: relative;
+}
+
+.absolute {
+	position: absolute;
+}
+
+.inset-0 {
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.z-10 {
+	z-index: 10;
+}
+
+.z-20 {
+	z-index: 20;
+}
+
+.z-30 {
+	z-index: 30;
+}
+
+.z-40 {
+	z-index: 40;
+}
+
+.bg-white {
+	background-color: #ffffff;
+}
+
+.bg-slate-900 {
+	background-color: #0f172a;
+}
+
+.bg-slate-50 {
+	background-color: #f8fafc;
+}
+
+.text-white {
+	color: #ffffff;
+}
+
+.text-slate-900 {
+	color: #0f172a;
+}
+
+.text-slate-600 {
+	color: #475569;
+}
+
+.text-red-600 {
+	color: #dc2626;
+}
+
+.text-blue-600 {
+	color: #2563eb;
+}
+
+.text-blue-400 {
+	color: #60a5fa;
+}
+
+.rounded-xl {
+	border-radius: 0.75rem;
+}
+
+.shadow-lg {
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.border {
+	border-width: 1px;
+}
+
+.border-red-200 {
+	border-color: #fecaca;
+}
+
+.border-blue-200 {
+	border-color: #bfdbfe;
+}
+
+.p-6 {
+	padding: 1.5rem;
+}
+
+@media (min-width: 768px) {
+	.md\:p-8 {
+		padding: 2rem;
+	}
+}
+
+.mb-2 {
+	margin-bottom: 0.5rem;
+}
+
+.mb-3 {
+	margin-bottom: 0.75rem;
+}
+
+.mb-4 {
+	margin-bottom: 1rem;
+}
+
+.text-xs {
+	font-size: 0.75rem;
+	line-height: 1rem;
+}
+
+.text-sm {
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+}
+
+.text-base {
+	font-size: 1rem;
+	line-height: 1.5rem;
+}
+
+.text-4xl {
+	font-size: 2.25rem;
+	line-height: 2.5rem;
+}
+
+.font-bold {
+	font-weight: 700;
+}
+
+.font-medium {
+	font-weight: 500;
+}
+
+.tracking-wide {
+	letter-spacing: 0.025em;
+}
+
+.max-w-4xl {
+	max-width: 56rem;
+}
+
+.max-w-2xl {
+	max-width: 42rem;
+}
+
+.h-full {
+	height: 100%;
+}
+
+.w-full {
+	width: 100%;
+}
+
+.transition-all {
+	transition-property: all;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+}
+
+.hover\:bg-white\/20:hover {
+	background-color: rgba(255, 255, 255, 0.2);
+}
+
+.backdrop-blur-sm {
+	backdrop-filter: blur(4px);
+}
+
+/* グラデーション */
+.bg-gradient-to-b {
+	background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
+}
+
+.from-black\/40 {
+	--tw-gradient-from: rgba(0, 0, 0, 0.4);
+	--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(0, 0, 0, 0));
+}
+
+.via-black\/20 {
+	--tw-gradient-stops: var(--tw-gradient-from), rgba(0, 0, 0, 0.2), var(--tw-gradient-to, rgba(0, 0, 0, 0));
+}
+
+.to-black\/60 {
+	--tw-gradient-to: rgba(0, 0, 0, 0.6);
+}
+
+/* 追加のユーティリティクラス - モックプレビューに合わせて */
+.mx-auto {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.px-4 {
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+
+@media (min-width: 768px) {
+	.md\:px-6 {
+		padding-left: 1.5rem;
+		padding-right: 1.5rem;
+	}
+}
+
+.px-6 {
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;
+}
+
+.px-8 {
+	padding-left: 2rem;
+	padding-right: 2rem;
+}
+
+@media (min-width: 768px) {
+	.md\:px-10 {
+		padding-left: 2.5rem;
+		padding-right: 2.5rem;
+	}
+}
+
+.py-6 {
+	padding-top: 1.5rem;
+	padding-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+	.md\:py-8 {
+		padding-top: 2rem;
+		padding-bottom: 2rem;
+	}
+}
+
+.py-20 {
+	padding-top: 5rem;
+	padding-bottom: 5rem;
+}
+
+.py-24 {
+	padding-top: 6rem;
+	padding-bottom: 6rem;
+}
+
+.mt-12 {
+	margin-top: 3rem;
+}
+
+.mb-8 {
+	margin-bottom: 2rem;
+}
+
+.mb-12 {
+	margin-bottom: 3rem;
+}
+
+.mb-16 {
+	margin-bottom: 4rem;
+}
+
+.-mt-8 {
+	margin-top: -2rem;
+}
+
+@media (min-width: 768px) {
+	.md\:-mt-6 {
+		margin-top: -1.5rem;
+	}
+}
+
+.gap-2 {
+	gap: 0.5rem;
+}
+
+.gap-3 {
+	gap: 0.75rem;
+}
+
+.gap-4 {
+	gap: 1rem;
+}
+
+.gap-5 {
+	gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+	.md\:gap-6 {
+		gap: 1.5rem;
+	}
+}
+
+.gap-6 {
+	gap: 1.5rem;
+}
+
+.items-end {
+	align-items: flex-end;
+}
+
+.items-baseline {
+	align-items: baseline;
+}
+
+.justify-between {
+	justify-content: space-between;
+}
+
+.flex-shrink-0 {
+	flex-shrink: 0;
+}
+
+.w-auto {
+	width: auto;
+}
+
+.w-12 {
+	width: 3rem;
+}
+
+.w-14 {
+	width: 3.5rem;
+}
+
+.h-12 {
+	height: 3rem;
+}
+
+.h-14 {
+	height: 3.5rem;
+}
+
+.h-1\.5 {
+	height: 0.375rem;
+}
+
+.h-64 {
+	height: 16rem;
+}
+
+@media (min-width: 768px) {
+	.md\:h-80 {
+		height: 20rem;
+	}
+}
+
+.h-32 {
+	height: 8rem;
+}
+
+.bottom-12 {
+	bottom: 3rem;
+}
+
+@media (min-width: 768px) {
+	.md\:bottom-16 {
+		bottom: 4rem;
+	}
+}
+
+.left-0 {
+	left: 0;
+}
+
+.top-4 {
+	top: 1rem;
+}
+
+.left-4 {
+	left: 1rem;
+}
+
+.top-2 {
+	top: 0.5rem;
+}
+
+.left-2 {
+	left: 0.5rem;
+}
+
+.z-0 {
+	z-index: 0;
+}
+
+.z-50 {
+	z-index: 50;
+}
+
+.text-slate-200 {
+	color: #e2e8f0;
+}
+
+.text-slate-400 {
+	color: #94a3b8;
+}
+
+.text-slate-500 {
+	color: #64748b;
+}
+
+.text-slate-700 {
+	color: #334155;
+}
+
+.text-blue-50 {
+	color: #eff6ff;
+}
+
+.text-blue-700 {
+	color: #1d4ed8;
+}
+
+.bg-blue-600 {
+	background-color: #2563eb;
+}
+
+.bg-blue-700 {
+	background-color: #1d4ed8;
+}
+
+.bg-blue-900 {
+	background-color: #1e3a8a;
+}
+
+.bg-slate-100 {
+	background-color: #f1f5f9;
+}
+
+.bg-slate-200 {
+	background-color: #e2e8f0;
+}
+
+.bg-slate-800 {
+	background-color: #1e293b;
+}
+
+.bg-white\/20 {
+	background-color: rgba(255, 255, 255, 0.2);
+}
+
+.bg-white\/30 {
+	background-color: rgba(255, 255, 255, 0.3);
+}
+
+.border-white\/20 {
+	border-color: rgba(255, 255, 255, 0.2);
+}
+
+.border-slate-200 {
+	border-color: #e2e8f0;
+}
+
+.border-slate-300 {
+	border-color: #cbd5e1;
+}
+
+.border-slate-800 {
+	border-color: #1e293b;
+}
+
+.border-blue-700 {
+	border-color: #1d4ed8;
+}
+
+.border-t {
+	border-top-width: 1px;
+}
+
+.border-b {
+	border-bottom-width: 1px;
+}
+
+.rounded-full {
+	border-radius: 9999px;
+}
+
+.rounded-lg {
+	border-radius: 0.5rem;
+}
+
+.rounded-2xl {
+	border-radius: 1rem;
+}
+
+.shadow-md {
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.text-xl {
+	font-size: 1.25rem;
+	line-height: 1.75rem;
+}
+
+@media (min-width: 768px) {
+	.md\:text-2xl {
+		font-size: 1.5rem;
+		line-height: 2rem;
+	}
+}
+
+.text-2xl {
+	font-size: 1.5rem;
+	line-height: 2rem;
+}
+
+.text-3xl {
+	font-size: 1.875rem;
+	line-height: 2.25rem;
+}
+
+@media (min-width: 768px) {
+	.md\:text-4xl {
+		font-size: 2.25rem;
+		line-height: 2.5rem;
+	}
+}
+
+@media (min-width: 768px) {
+	.md\:text-5xl {
+		font-size: 3rem;
+		line-height: 1;
+	}
+}
+
+@media (min-width: 768px) {
+	.md\:text-6xl {
+		font-size: 3.75rem;
+		line-height: 1;
+	}
+}
+
+@media (min-width: 768px) {
+	.md\:text-sm {
+		font-size: 0.875rem;
+		line-height: 1.25rem;
+	}
+}
+
+@media (min-width: 768px) {
+	.md\:text-base {
+		font-size: 1rem;
+		line-height: 1.5rem;
+	}
+}
+
+@media (min-width: 768px) {
+	.md\:text-xl {
+		font-size: 1.25rem;
+		line-height: 1.75rem;
+	}
+}
+
+.uppercase {
+	text-transform: uppercase;
+}
+
+.leading-tight {
+	line-height: 1.25;
+}
+
+.leading-relaxed {
+	line-height: 1.625;
+}
+
+.leading-snug {
+	line-height: 1.375;
+}
+
+.tracking-tight {
+	letter-spacing: -0.025em;
+}
+
+.overflow-hidden {
+	overflow: hidden;
+}
+
+.object-cover {
+	object-fit: cover;
+}
+
+.group:hover .group-hover\:scale-105 {
+	transform: scale(1.05);
+}
+
+.group:hover .group-hover\:text-blue-600 {
+	color: #2563eb !important;
+}
+
+.group:hover .group-hover\:bg-blue-50 {
+	background-color: #eff6ff !important;
+}
+
+.group:hover .group-hover\:text-blue-700 {
+	color: #1d4ed8 !important;
+}
+
+.group:hover .group-hover\:bg-blue-600 {
+	background-color: #2563eb !important;
+}
+
+.group:hover .group-hover\:bg-white {
+	background-color: #ffffff !important;
+}
+
+.group:hover .group-hover\:border-slate-300 {
+	border-color: #cbd5e1 !important;
+}
+
+.group:hover .group-hover\:shadow-md {
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.group:hover .group-hover\:shadow-lg {
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* はじめての方へバナーの「詳しく見る」ボタン */
+.group .flex.items-center.gap-2.bg-white {
+	display: flex !important;
+	align-items: center !important;
+	gap: 0.5rem !important;
+	background-color: #ffffff !important;
+	padding: 0.75rem 1.25rem !important;
+	border-radius: 0.5rem !important;
+	transition: background-color 0.2s ease !important;
+}
+
+.group:hover .flex.items-center.gap-2.bg-white {
+	background-color: #eff6ff !important;
+}
+
+.group .flex.items-center.gap-2.bg-white span {
+	color: #2563eb !important;
+	font-size: 1rem !important;
+	font-weight: 700 !important;
+	transition: color 0.2s ease !important;
+}
+
+.group:hover .flex.items-center.gap-2.bg-white span {
+	color: #1d4ed8 !important;
+}
+
+.group .flex.items-center.gap-2.bg-white svg {
+	width: 1.25rem !important;
+	height: 1.25rem !important;
+	color: #2563eb !important;
+	transition: color 0.2s ease !important;
+}
+
+.group:hover .flex.items-center.gap-2.bg-white svg {
+	color: #1d4ed8 !important;
+}
+
+/* 事業紹介セクションの「詳しく見る」ボタン */
+.group .flex.items-center.gap-2.text-xs {
+	display: flex !important;
+	align-items: center !important;
+	gap: 0.5rem !important;
+	font-size: 0.75rem !important;
+	font-weight: 700 !important;
+	color: #2563eb !important;
+	margin-top: auto !important;
+}
+
+.group .flex.items-center.gap-2.text-xs svg {
+	width: 1rem !important;
+	height: 1rem !important;
+	color: #2563eb !important;
+}
+
+.transition-transform {
+	transition-property: transform;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+}
+
+.transition-colors {
+	transition-property: color, background-color, border-color;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+}
+
+.duration-200 {
+	transition-duration: 200ms;
+}
+
+.duration-300 {
+	transition-duration: 300ms;
+}
+
+.hover\:bg-blue-700:hover {
+	background-color: #1d4ed8;
+}
+
+.hover\:text-slate-900:hover {
+	color: #0f172a;
+}
+
+.hover\:border-slate-300:hover {
+	border-color: #cbd5e1;
+}
+
+.hover\:shadow-lg:hover {
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* グリッドレイアウト */
+.grid-cols-2 {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 768px) {
+	.md\:grid-cols-2 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 1024px) {
+	.lg\:grid-cols-5 {
+		grid-template-columns: repeat(5, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 1024px) {
+	.lg\:col-span-3 {
+		grid-column: span 3 / span 3;
+	}
+}
+
+@media (min-width: 1024px) {
+	.lg\:col-span-2 {
+		grid-column: span 2 / span 2;
+	}
+}
+
+/* グラデーション背景 */
+.bg-gradient-to-br {
+	background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
+}
+
+.from-slate-50 {
+	--tw-gradient-from: #f8fafc;
+	--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(248, 250, 252, 0));
+}
+
+.via-white {
+	--tw-gradient-stops: var(--tw-gradient-from), #ffffff, var(--tw-gradient-to, rgba(255, 255, 255, 0));
+}
+
+.to-slate-50 {
+	--tw-gradient-to: #f8fafc;
+}
+
+.from-slate-800 {
+	--tw-gradient-from: #1e293b;
+	--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(30, 41, 59, 0));
+}
+
+.via-slate-900 {
+	--tw-gradient-stops: var(--tw-gradient-from), #0f172a, var(--tw-gradient-to, rgba(15, 23, 42, 0));
+}
+
+.to-slate-800 {
+	--tw-gradient-to: #1e293b;
+}
+
+.opacity-30 {
+	opacity: 0.3;
+}
+
+.pointer-events-none {
+	pointer-events: none;
+}
+
+/* カルーセルコントロール */
+.gtnet-carousel-prev,
+.gtnet-carousel-next {
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 3rem;
+	height: 3rem;
+	border-radius: 9999px;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	color: #ffffff;
+	background-color: transparent;
+	transition: all 0.2s ease;
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+}
+
+.gtnet-carousel-prev:hover,
+.gtnet-carousel-next:hover {
+	background-color: rgba(255, 255, 255, 0.2);
+	border-color: rgba(255, 255, 255, 0.3);
+}
+
+.gtnet-carousel-prev svg,
+.gtnet-carousel-next svg {
+	width: 1.5rem;
+	height: 1.5rem;
+}
+
+.gtnet-carousel-indicator {
+	cursor: pointer;
+}
+
+.gtnet-carousel-indicator.w-12 {
+	width: 3rem;
+}
+
+.gtnet-carousel-indicator.w-4 {
+	width: 1rem;
+}
+
+.gtnet-carousel-indicator.bg-white {
+	background-color: #ffffff;
+}
+
+.gtnet-carousel-indicator.bg-white\/30 {
+	background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* レスポンシブ表示 */
+.hidden {
+	display: none !important;
+}
+
+@media (min-width: 768px) {
+	.md\:flex {
+		display: flex !important;
+	}
+	
+	.md\:hidden {
+		display: none !important;
+	}
+	
+	.md\:inline {
+		display: inline !important;
+	}
+}
+
+/* テキストの色 */
+.text-\[10px\] {
+	font-size: 10px;
+}
+
+/* カルーセルスライドの背景色 */
+.bg-blue-900 {
+	background-color: #1e3a8a;
+}
+
+.bg-slate-800 {
+	background-color: #1e293b;
+}
+
+/* 統計カードのスタイル調整 */
+.flex-col {
+	flex-direction: column;
+}
+
+/* はじめての方へバナーのスタイル */
+.group {
+	position: relative;
+}
+
+/* お知らせセクションのスタイル */
+.line-clamp-2 {
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+/* 事業紹介セクションのグリッドパターン */
+.bg-\[linear-gradient\(to_right\2c #e2e8f0_1px\2c transparent_1px\)\2c linear-gradient\(to_bottom\2c #e2e8f0_1px\2c transparent_1px\)\] {
+	background-image: linear-gradient(to right, #e2e8f0 1px, transparent 1px), linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+}
+
+.bg-\[size\:40px_40px\] {
+	background-size: 40px 40px;
+}
+
+/* GT-NET ヘッダースタイル */
+.gtnet-header {
+	position: fixed !important;
+	top: 2rem;
+	left: 0;
+	right: 0;
+	width: 100%;
+	z-index: 50;
+	transition: all 0.3s ease;
+	display: block !important;
+	visibility: visible !important;
+	opacity: 1 !important;
+}
+
+@media (min-width: 768px) {
+	.gtnet-header {
+		top: 1.5rem;
+	}
+}
+
+/* トップ時のヘッダー（透明） */
+.gtnet-header-transparent {
+	background-color: transparent !important;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+/* スクロール時のヘッダー（白背景） */
+.gtnet-header-scrolled {
+	background-color: rgba(255, 255, 255, 0.95) !important;
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+}
+
+/* ロゴのスタイル */
+.gtnet-logo-img {
+	height: 2.5rem;
+	width: auto;
+	transition: all 0.3s ease;
+}
+
+@media (min-width: 768px) {
+	.gtnet-logo-img {
+		height: 3rem;
+	}
+}
+
+/* スクロール時のロゴ（白→黒） */
+.gtnet-header-transparent .gtnet-logo-img {
+	filter: brightness(0) invert(1);
+}
+
+.gtnet-header-scrolled .gtnet-logo-img {
+	filter: none;
+}
+
+/* ナビゲーションリンク */
+.gtnet-nav-link {
+	color: inherit;
+	text-decoration: none;
+}
+
+.gtnet-header-transparent .gtnet-nav-link {
+	color: #ffffff;
+}
+
+.gtnet-header-scrolled .gtnet-nav-link {
+	color: #0f172a;
+}
+
+.gtnet-nav-link:hover {
+	color: #2563eb;
+}
+
+/* ログインボタン */
+.gtnet-login-btn {
+	text-decoration: none;
+	border-radius: 9999px;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 1rem;
+	font-size: 0.875rem;
+	font-weight: 700;
+	transition: all 0.2s ease;
+	border: none;
+	cursor: pointer;
+}
+
+.gtnet-header-transparent .gtnet-login-btn {
+	background-color: rgba(255, 255, 255, 0.1);
+	color: #ffffff;
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+}
+
+.gtnet-header-transparent .gtnet-login-btn:hover {
+	background-color: rgba(255, 255, 255, 0.2);
+}
+
+.gtnet-header-scrolled .gtnet-login-btn {
+	background-color: #f1f5f9;
+	color: #334155;
+}
+
+.gtnet-header-scrolled .gtnet-login-btn:hover {
+	background-color: #e2e8f0;
+}
+
+/* お問い合わせボタン */
+.gtnet-header a[href*="/contact/"] {
+	display: inline-block;
+	background-color: #2563eb;
+	color: #ffffff;
+	padding: 0.5rem 1.25rem;
+	border-radius: 9999px;
+	font-size: 0.875rem;
+	font-weight: 700;
+	text-decoration: none;
+	transition: all 0.2s ease;
+	box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.2), 0 4px 6px -2px rgba(37, 99, 235, 0.1);
+}
+
+.gtnet-header a[href*="/contact/"]:hover {
+	background-color: #1d4ed8;
+	box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3), 0 4px 6px -2px rgba(37, 99, 235, 0.2);
+}
+
+/* モバイルメニュー */
+.gtnet-mobile-menu {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+	background-color: #0f172a;
+	color: #ffffff;
+	z-index: 60;
+}
+
+.gtnet-mobile-menu.hidden {
+	display: none;
+}
+
+.gtnet-mobile-link {
+	color: inherit;
+	text-decoration: none;
+	transition: color 0.2s ease;
+}
+
+.gtnet-mobile-link:hover {
+	color: #60a5fa;
+}
+
+/* ヘッダーのコンテナ */
+.gtnet-header .container {
+	max-width: 1280px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;
+}
+
+/* 固定ヘッダーのためのパディング */
+body.gtnet-has-header {
+	padding-top: 0;
+}
+
+.gtnet-home {
+	padding-top: 0;
+}
+
+/* ヘッダーの高さ分のスペースを確保（スクロール時の高さ） */
+.gtnet-header-scrolled + * {
+	margin-top: 0;
+}
+
+/* モバイルメニューボタンのアイコン切り替え */
+.gtnet-menu-icon.hidden {
+	display: none;
+}
+
+.gtnet-close-icon.hidden {
+	display: none;
+}
+
+/* 追加のユーティリティクラス */
+.h-\[600px\] {
+	height: 600px;
+}
+
+@media (min-width: 768px) {
+	.md\:h-\[700px\] {
+		height: 700px;
+	}
+}
+
+.transition-opacity {
+	transition-property: opacity;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+}
+
+.duration-700 {
+	transition-duration: 700ms;
+}
+
+.ease-in-out {
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.py-1\.5 {
+	padding-top: 0.375rem;
+	padding-bottom: 0.375rem;
+}
+
+.mb-1\.5 {
+	margin-bottom: 0.375rem;
+}
+
+.bg-green-50 {
+	background-color: #f0fdf4;
+}
+
+.text-green-700 {
+	color: #15803d;
+}
+
+.bg-purple-50 {
+	background-color: #faf5ff;
+}
+
+.text-purple-700 {
+	color: #7c3aed;
+}
+
+.text-lg {
+	font-size: 1.125rem;
+	line-height: 1.75rem;
+}
+
+.w-4 {
+	width: 1rem;
+}
+
+.w-5 {
+	width: 1.25rem;
+}
+
+.w-6 {
+	width: 1.5rem;
+}
+
+.rounded-lg {
+	border-radius: 0.5rem;
+}
+
+.p-3 {
+	padding: 0.75rem;
+}
+
+/* カルーセルスライドのトランジション */
+.gtnet-carousel-slide {
+	transition: opacity 0.7s ease-in-out;
+}
+
+/* カルーセル内のh2スタイル */
+.gtnet-carousel h2 {
+	color: #ffffff !important;
+	font-weight: 700 !important;
+	line-height: 1.25 !important; /* モックのleading-tightに合わせる */
+	margin-bottom: 1.5rem !important; /* 基本の下マージン */
+	text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important; /* テキストの視認性を向上 */
+}
+
+.gtnet-carousel h2 span {
+	color: #60a5fa !important;
+}
+
+/* カルーセル内のpスタイル */
+.gtnet-carousel p {
+	color: #ffffff !important; /* より明るい色に変更 */
+	font-weight: 500 !important;
+	line-height: 1.625 !important;
+	text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) !important; /* テキストの視認性を向上 */
+}
+
+/* サブタイトル（text-blue-400）の視認性向上 */
+.gtnet-carousel p.text-blue-400 {
+	color: #60a5fa !important;
+	text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) !important;
+	font-weight: 700 !important;
+}
+
+/* カルーセルコントロールのスタイル */
+.gtnet-carousel-prev:hover,
+.gtnet-carousel-next:hover {
+	background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* はじめての方へバナーのスタイル */
+.group:hover .group-hover\:scale-105 {
+	transform: scale(1.05);
+}
+
+/* お知らせセクションの画像ホバー効果 */
+.group:hover img.group-hover\:scale-105 {
+	transform: scale(1.05);
+}
+
+/* 事業紹介セクションのアイコンホバー効果 */
+.group:hover .group-hover\:bg-blue-600 {
+	background-color: #2563eb;
+}
+
+/* レスポンシブの調整 */
+@media (max-width: 767px) {
+	.gtnet-carousel h2 {
+		font-size: 2.25rem;
+		line-height: 2.5rem;
+	}
+}
+
+@media (min-width: 768px) {
+	.gtnet-carousel h2 {
+		font-size: 3.75rem;
+		line-height: 1;
+	}
+}
+
+/* 最新情報セクションのスタイリング */
+.gtnet-home section:has(.gtnet-news-filter) {
+	padding-top: 6rem !important;
+	padding-bottom: 6rem !important;
+}
+
+/* 最新情報セクションのコンテナ */
+.gtnet-home section:has(.gtnet-news-filter) .container {
+	max-width: 1280px !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+
+/* ニュースフィルターボタンのスタイリング */
+.gtnet-news-filter {
+	cursor: pointer !important;
+	border: 1px solid rgba(255, 255, 255, 0.2) !important;
+	padding: 0.5rem 1rem !important;
+	border-radius: 0.5rem !important;
+	font-size: 0.75rem !important;
+	font-weight: 700 !important;
+	white-space: nowrap !important;
+	transition: all 0.2s !important;
+	background-color: rgba(255, 255, 255, 0.1) !important;
+	color: #e2e8f0 !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+}
+
+.gtnet-news-filter:hover {
+	background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.gtnet-news-filter.bg-blue-600 {
+	background-color: #2563eb !important;
+	color: #ffffff !important;
+	border-color: #2563eb !important;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+.gtnet-news-filter.bg-blue-600:hover {
+	background-color: #2563eb !important;
+}
+
+/* ニュースアイテムのスタイリング */
+.gtnet-news-item {
+	text-decoration: none !important;
+	background-color: rgba(255, 255, 255, 0.95) !important;
+	backdrop-filter: blur(4px) !important;
+	padding-top: 0.25rem !important;
+	padding-bottom: 0.25rem !important;
+	padding-left: 0.875rem !important;
+	padding-right: 0.875rem !important;
+	border-radius: 0.75rem !important;
+	border: 1px solid rgba(255, 255, 255, 0.3) !important;
+	transition: all 0.2s !important;
+	display: flex !important;
+	flex-direction: column !important;
+	gap: 0.5rem !important;
+	min-height: auto !important;
+}
+
+@media (min-width: 640px) {
+	.gtnet-news-item {
+		flex-direction: row !important;
+		align-items: center !important;
+		gap: 1rem !important;
+		padding-top: 0.3125rem !important;
+		padding-bottom: 0.3125rem !important;
+		padding-left: 1rem !important;
+		padding-right: 1rem !important;
+	}
+}
+
+.gtnet-news-item:hover {
+	text-decoration: none !important;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+	background-color: #ffffff !important;
+}
+
+/* 重要・緊急記事の左側バー - より目立つスタイル */
+.gtnet-news-item.border-l-4.border-l-red-500 {
+	border-left-width: 6px !important;
+	border-left-color: #dc2626 !important;
+	border-left-style: solid !important;
+	box-shadow: -4px 0 8px rgba(220, 38, 38, 0.2) !important;
+	position: relative !important;
+	border-top-left-radius: 0.75rem !important;
+	border-bottom-left-radius: 0.75rem !important;
+}
+
+.gtnet-news-item.border-l-4.border-l-red-500::before {
+	content: '' !important;
+	position: absolute !important;
+	left: 0 !important;
+	top: 0.5rem !important;
+	bottom: 0.5rem !important;
+	width: 6px !important;
+	background: linear-gradient(to bottom, #dc2626, #b91c1c) !important;
+	border-radius: 0.375rem !important;
+	z-index: 1 !important;
+}
+
+/* ニュースアイテムの日付部分 */
+.gtnet-news-item .flex-shrink-0.flex.flex-col {
+	min-width: 96px !important;
+	display: flex !important;
+	flex-direction: column !important;
+	align-items: flex-start !important;
+}
+
+@media (min-width: 640px) {
+	.gtnet-news-item .flex-shrink-0.flex.flex-col {
+		align-items: center !important;
+	}
+}
+
+/* ニュースアイテムのバッジ部分 */
+.gtnet-news-item .flex.flex-wrap.items-center.gap-2 {
+	display: flex !important;
+	flex-wrap: wrap !important;
+	align-items: center !important;
+	gap: 0.5rem !important;
+	margin-bottom: 0.25rem !important;
+}
+
+/* タイプタグのスタイリング */
+.gtnet-news-item span.px-3.py-0\.5,
+.gtnet-news-item .px-3.py-0\.5 {
+	padding-left: 0.75rem !important;
+	padding-right: 0.75rem !important;
+	padding-top: 0.125rem !important;
+	padding-bottom: 0.125rem !important;
+	font-size: 0.625rem !important;
+	font-weight: 900 !important;
+	border: 1px solid #e2e8f0 !important;
+	border-radius: 9999px !important;
+	background-color: #f1f5f9 !important;
+	color: #334155 !important;
+}
+
+/* 重要バッジのスタイリング */
+.gtnet-news-item span.bg-red-500,
+.gtnet-news-item .bg-red-500 {
+	display: flex !important;
+	align-items: center !important;
+	gap: 0.25rem !important;
+	padding-left: 0.5rem !important;
+	padding-right: 0.5rem !important;
+	padding-top: 0.125rem !important;
+	padding-bottom: 0.125rem !important;
+	font-size: 0.625rem !important;
+	font-weight: 900 !important;
+	background-color: #ef4444 !important;
+	color: #ffffff !important;
+	border-radius: 9999px !important;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+.gtnet-news-item span.bg-red-500 svg,
+.gtnet-news-item .bg-red-500 svg {
+	width: 0.75rem !important;
+	height: 0.75rem !important;
+}
+
+/* ロックアイコンのスタイリング */
+.gtnet-news-item h4 svg.w-4.h-4,
+.gtnet-news-item h4 svg {
+	width: 1rem !important;
+	height: 1rem !important;
+	color: #94a3b8 !important;
+	flex-shrink: 0 !important;
+}
+
+/* ニュースアイテムのタイトル */
+.gtnet-news-item h4 {
+	margin: 0 !important;
+	font-size: 1.125rem !important;
+	font-weight: 700 !important;
+	color: #0f172a !important;
+	line-height: 1.25 !important;
+	display: flex !important;
+	align-items: center !important;
+	gap: 0.5rem !important;
+	transition: color 0.2s !important;
+}
+
+.gtnet-news-item:hover h4 {
+	color: #2563eb !important;
+}
+
+/* ニュースアイテムの矢印アイコン */
+.gtnet-news-item .w-10.h-10.rounded-full {
+	width: 2.5rem !important;
+	height: 2.5rem !important;
+	border-radius: 9999px !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	background-color: #f1f5f9 !important;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+	transition: all 0.2s !important;
+}
+
+.gtnet-news-item .w-10.h-10.rounded-full svg {
+	width: 1.25rem !important;
+	height: 1.25rem !important;
+	color: #0f172a !important;
+	transition: color 0.2s !important;
+}
+
+.gtnet-news-item:hover .w-10.h-10.rounded-full {
+	background-color: #2563eb !important;
+}
+
+.gtnet-news-item:hover .w-10.h-10.rounded-full svg {
+	color: #ffffff !important;
+}
+
+/* 最新情報セクションのヘッダー（タイトル+フィルター+サイドバー）レイアウト */
+.gtnet-home section:has(.gtnet-news-filter) > .container > .flex.flex-col {
+	display: flex !important;
+	flex-direction: column !important;
+	gap: 1.5rem !important;
+}
+
+@media (min-width: 1024px) {
+	.gtnet-home section:has(.gtnet-news-filter) > .container > .flex.flex-col {
+		flex-direction: row !important;
+		align-items: flex-start !important;
+		gap: 3rem !important;
+	}
+}
+/* サイドバーの位置調整 - セクションの開始位置に合わせる */
+.gtnet-home section:has(.gtnet-news-filter) > .container > .flex.flex-col.lg\:flex-row {
+	align-items: flex-start !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .lg\:w-1\/3 {
+	width: 100% !important;
+}
+
+@media (min-width: 1024px) {
+	.gtnet-home section:has(.gtnet-news-filter) .lg\:w-2\/3 {
+		width: 66.666667% !important;
+		flex: 0 0 66.666667% !important;
+		max-width: 66.666667% !important;
+	}
+	
+	.gtnet-home section:has(.gtnet-news-filter) .lg\:w-1\/3 {
+		width: 33.333333% !important;
+		flex: 0 0 33.333333% !important;
+		max-width: 33.333333% !important;
+		align-self: flex-start !important;
+		margin-top: -4rem !important;
+	}
+}
+
+/* ニュースリストのスペーシング */
+.gtnet-home section:has(.gtnet-news-filter) #gtnet-news-list.space-y-6 {
+	display: flex !important;
+	flex-direction: column !important;
+	gap: 0.25rem !important;
+}
+
+@media (min-width: 768px) {
+	.gtnet-home section:has(.gtnet-news-filter) #gtnet-news-list.space-y-6 {
+		gap: 0.3125rem !important;
+	}
+}
+
+/* サイドバーカードのスタイリング */
+.gtnet-home section:has(.gtnet-news-filter) .lg\:w-1\/3.space-y-6 > * {
+	margin-bottom: 1.5rem !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .lg\:w-1\/3.space-y-6 > *:last-child {
+	margin-bottom: 0 !important;
+}
+
+/* フィルタータブのコンテナ */
+.gtnet-home section:has(.gtnet-news-filter) .mb-10 {
+	margin-bottom: 2.5rem !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .mb-10 > .flex {
+	display: flex !important;
+	flex-direction: column !important;
+	gap: 1.5rem !important;
+}
+
+@media (min-width: 768px) {
+	.gtnet-home section:has(.gtnet-news-filter) .mb-10 > .flex {
+		flex-direction: row !important;
+		align-items: center !important;
+		justify-content: space-between !important;
+	}
+}
+
+/* タイトルとフィルターのコンテナ */
+.gtnet-home section:has(.gtnet-news-filter) .mb-10 > .flex > .flex {
+	display: flex !important;
+	flex-direction: column !important;
+	gap: 1rem !important;
+}
+
+@media (min-width: 768px) {
+	.gtnet-home section:has(.gtnet-news-filter) .mb-10 > .flex > .flex {
+		flex-direction: row !important;
+		align-items: center !important;
+		gap: 1.5rem !important;
+	}
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .flex.gap-1.overflow-x-auto {
+	display: flex !important;
+	gap: 0.25rem !important;
+	overflow-x: auto !important;
+	padding-bottom: 0.5rem !important;
+	margin-bottom: -0.5rem !important;
+	width: 100% !important;
+	flex-shrink: 0 !important;
+}
+
+@media (min-width: 768px) {
+	.gtnet-home section:has(.gtnet-news-filter) .flex.gap-1.overflow-x-auto {
+		width: auto !important;
+	}
+}
+
+/* 過去の情報をすべて見るボタン */
+.gtnet-home section:has(.gtnet-news-filter) a[href*="/archives/"] {
+	width: 100% !important;
+	padding: 1.25rem !important;
+	color: #ffffff !important;
+	font-weight: 900 !important;
+	font-size: 0.875rem !important;
+	border: 2px solid rgba(255, 255, 255, 0.3) !important;
+	border-radius: 1rem !important;
+	background-color: rgba(255, 255, 255, 0.1) !important;
+	backdrop-filter: blur(4px) !important;
+	transition: all 0.2s !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	gap: 0.5rem !important;
+	margin-top: 1rem !important;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+	text-decoration: none !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) a[href*="/archives/"]:hover {
+	background-color: #2563eb !important;
+	border-color: #2563eb !important;
+	text-decoration: none !important;
+}
+
+/* サイドバーカードのスタイリング */
+/* 動画ライブラリカード */
+.gtnet-home section:has(.gtnet-news-filter) .bg-blue-600\/90 {
+	background-color: rgba(37, 99, 235, 0.9) !important;
+	backdrop-filter: blur(4px) !important;
+	border-radius: 1.5rem !important;
+	padding: 2rem !important;
+	color: #ffffff !important;
+	position: relative !important;
+	overflow: hidden !important;
+	border: 1px solid rgba(255, 255, 255, 0.2) !important;
+	box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-blue-600\/90 .bg-white\/20 {
+	background-color: rgba(255, 255, 255, 0.2) !important;
+	padding: 0.25rem 0.75rem !important;
+	border-radius: 9999px !important;
+	font-size: 0.625rem !important;
+	font-weight: 900 !important;
+	margin-bottom: 1rem !important;
+	display: inline-block !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-blue-600\/90 h5 {
+	font-size: 1.5rem !important;
+	font-weight: 900 !important;
+	margin-bottom: 1rem !important;
+	color: #ffffff !important;
+}
+
+/* 動画ライブラリの再生アイコン */
+.gtnet-home section:has(.gtnet-news-filter) .bg-blue-600\/90 svg.absolute {
+	position: absolute !important;
+	right: 0.5rem !important;
+	bottom: 0.5rem !important;
+	width: 10rem !important;
+	height: 10rem !important;
+	color: rgba(255, 255, 255, 0.05) !important;
+	transition: transform 0.7s !important;
+	z-index: 1 !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-blue-600\/90.group:hover svg.absolute {
+	transform: scale(1.1) !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-blue-600\/90 .flex.flex-wrap.gap-2 {
+	display: flex !important;
+	flex-wrap: wrap !important;
+	gap: 0.5rem !important;
+	margin-bottom: 1.5rem !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-blue-600\/90 .flex.flex-wrap.gap-2 span {
+	background-color: rgba(255, 255, 255, 0.2) !important;
+	padding: 0.375rem 0.75rem !important;
+	border-radius: 0.5rem !important;
+	font-size: 0.75rem !important;
+	font-weight: 700 !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-blue-600\/90 a.bg-slate-900 {
+	width: 100% !important;
+	background-color: #0f172a !important;
+	padding: 1rem !important;
+	border-radius: 0.75rem !important;
+	font-weight: 700 !important;
+	color: #ffffff !important;
+	transition: all 0.2s !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	gap: 0.5rem !important;
+	box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+	text-decoration: none !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-blue-600\/90 a.bg-slate-900:hover {
+	background-color: #000000 !important;
+	text-decoration: none !important;
+}
+
+/* 書式テンプレートカードとデータベースカード */
+.gtnet-home section:has(.gtnet-news-filter) .bg-white\/95 {
+	background-color: rgba(255, 255, 255, 0.95) !important;
+	backdrop-filter: blur(4px) !important;
+	border-radius: 1.5rem !important;
+	padding: 2rem !important;
+	border: 1px solid rgba(255, 255, 255, 0.3) !important;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-white\/95 h5 {
+	font-size: 1.25rem !important;
+	font-weight: 900 !important;
+	margin-bottom: 1.5rem !important;
+	color: #0f172a !important;
+	display: flex !important;
+	align-items: center !important;
+	gap: 0.75rem !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-white\/95 h5 svg {
+	width: 1.5rem !important;
+	height: 1.5rem !important;
+	color: #2563eb !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-white\/95 .space-y-2 {
+	display: flex !important;
+	flex-direction: column !important;
+	gap: 0.5rem !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-white\/95 .space-y-2 > a {
+	display: flex !important;
+	align-items: center !important;
+	justify-content: space-between !important;
+	padding: 1rem !important;
+	border-radius: 0.75rem !important;
+	border: 1px solid transparent !important;
+	transition: all 0.2s !important;
+	text-decoration: none !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-white\/95 .space-y-2 > a:hover {
+	background-color: #f8fafc !important;
+	border-color: #e2e8f0 !important;
+	text-decoration: none !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-white\/95 .space-y-2 > a > div {
+	display: flex !important;
+	align-items: center !important;
+	gap: 0.75rem !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-white\/95 .space-y-2 > a svg.w-5.h-5 {
+	width: 1.25rem !important;
+	height: 1.25rem !important;
+	color: #94a3b8 !important;
+	transition: color 0.2s !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-white\/95 .space-y-2 > a:hover svg.w-5.h-5 {
+	color: #2563eb !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-white\/95 .space-y-2 > a span {
+	font-size: 0.875rem !important;
+	font-weight: 700 !important;
+	color: #334155 !important;
+	transition: color 0.2s !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-white\/95 .space-y-2 > a:hover span {
+	color: #2563eb !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-white\/95 .space-y-2 > a > svg.w-4.h-4 {
+	width: 1rem !important;
+	height: 1rem !important;
+	color: #cbd5e1 !important;
+	transition: color 0.2s !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-white\/95 .space-y-2 > a:hover > svg.w-4.h-4 {
+	color: #2563eb !important;
+}
+
+/* 緊急のご相談カード */
+.gtnet-home section:has(.gtnet-news-filter) .bg-slate-900\/90 {
+	background-color: rgba(15, 23, 42, 0.9) !important;
+	backdrop-filter: blur(4px) !important;
+	border-radius: 1.5rem !important;
+	padding: 2rem !important;
+	color: #ffffff !important;
+	border: 1px solid rgba(255, 255, 255, 0.2) !important;
+	box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-slate-900\/90 h5 {
+	font-size: 1.25rem !important;
+	font-weight: 900 !important;
+	margin-bottom: 1rem !important;
+	color: #ffffff !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-slate-900\/90 .space-y-4 {
+	display: flex !important;
+	flex-direction: column !important;
+	gap: 1rem !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-slate-900\/90 .bg-white\/5 {
+	background-color: rgba(255, 255, 255, 0.05) !important;
+	border-radius: 1rem !important;
+	border: 1px solid rgba(255, 255, 255, 0.1) !important;
+	padding: 1rem !important;
+	display: flex !important;
+	align-items: center !important;
+	gap: 1rem !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-slate-900\/90 .bg-white\/5 svg {
+	width: 1.5rem !important;
+	height: 1.5rem !important;
+	color: #60a5fa !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-slate-900\/90 .bg-white\/5 p.text-\[10px\] {
+	font-size: 0.625rem !important;
+	color: #94a3b8 !important;
+	font-weight: 700 !important;
+	letter-spacing: 0.05em !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-slate-900\/90 .bg-white\/5 p.text-xl {
+	font-size: 1.25rem !important;
+	font-weight: 900 !important;
+	color: #ffffff !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-slate-900\/90 a.bg-blue-600 {
+	width: 100% !important;
+	background-color: #2563eb !important;
+	padding: 1rem !important;
+	border-radius: 1rem !important;
+	font-weight: 900 !important;
+	font-size: 0.875rem !important;
+	color: #ffffff !important;
+	transition: all 0.2s !important;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(37, 99, 235, 0.4) !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	gap: 0.5rem !important;
+	text-decoration: none !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-slate-900\/90 a.bg-blue-600:hover {
+	background-color: #1d4ed8 !important;
+	text-decoration: none !important;
+}
+
+.gtnet-home section:has(.gtnet-news-filter) .bg-slate-900\/90 a.bg-blue-600 svg {
+	width: 1.25rem !important;
+	height: 1.25rem !important;
+}
+
+/* サイドバーのスペーシング */
+.gtnet-home section:has(.gtnet-news-filter) .space-y-6 {
+	display: flex !important;
+	flex-direction: column !important;
+	gap: 1.5rem !important;
+}
+
+/* ============================================
+   GT-NET フッタースタイル
+   ============================================ */
+.gtnet-footer {
+	background-color: #020617 !important;
+	padding-top: 6rem !important;
+	padding-bottom: 3rem !important;
+	color: #64748b !important;
+	width: 100% !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+
+.gtnet-footer .container {
+	max-width: 1280px !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+	padding-left: 1rem !important;
+	padding-right: 1rem !important;
+}
+
+@media (min-width: 768px) {
+	.gtnet-footer .container {
+		padding-left: 1.5rem !important;
+		padding-right: 1.5rem !important;
+	}
+}
+
+.gtnet-footer .grid {
+	display: grid !important;
+	grid-template-columns: 1fr !important;
+	gap: 5rem !important;
+	margin-bottom: 5rem !important;
+}
+
+@media (min-width: 1024px) {
+	.gtnet-footer .grid {
+		grid-template-columns: 1fr 1fr !important;
+	}
+}
+
+.gtnet-footer img {
+	height: 3rem !important;
+	width: auto !important;
+	filter: brightness(0) invert(1) !important;
+	margin-bottom: 2rem !important;
+}
+
+.gtnet-footer p.max-w-md {
+	max-width: 28rem !important;
+	font-size: 0.875rem !important;
+	line-height: 1.75 !important;
+	margin-bottom: 2rem !important;
+}
+
+.gtnet-footer .flex.gap-4 {
+	display: flex !important;
+	gap: 1rem !important;
+}
+
+.gtnet-footer .flex.gap-4 a {
+	width: 3rem !important;
+	height: 3rem !important;
+	border-radius: 1rem !important;
+	background-color: rgba(255, 255, 255, 0.05) !important;
+	border: 1px solid rgba(255, 255, 255, 0.1) !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	transition: all 0.2s !important;
+	text-decoration: none !important;
+}
+
+.gtnet-footer .flex.gap-4 a:hover {
+	background-color: #2563eb !important;
+	color: #ffffff !important;
+}
+
+.gtnet-footer .flex.gap-4 a svg {
+	width: 1.25rem !important;
+	height: 1.25rem !important;
+}
+
+.gtnet-footer .grid.grid-cols-2 {
+	display: grid !important;
+	grid-template-columns: repeat(2, 1fr) !important;
+	gap: 2rem !important;
+}
+
+@media (min-width: 768px) {
+	.gtnet-footer .grid.grid-cols-2 {
+		grid-template-columns: repeat(3, 1fr) !important;
+	}
+}
+
+.gtnet-footer .grid.grid-cols-2 > div {
+	display: flex !important;
+	flex-direction: column !important;
+}
+
+.gtnet-footer .grid.grid-cols-2 .col-span-2 {
+	grid-column: span 2 / span 2 !important;
+}
+
+@media (min-width: 768px) {
+	.gtnet-footer .grid.grid-cols-2 .col-span-2 {
+		grid-column: span 1 / span 1 !important;
+	}
+}
+
+.gtnet-footer h6 {
+	color: #ffffff !important;
+	font-weight: 900 !important;
+	font-size: 0.75rem !important;
+	letter-spacing: 0.2em !important;
+	margin-bottom: 1.5rem !important;
+	text-transform: uppercase !important;
+}
+
+.gtnet-footer ul {
+	list-style: none !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	display: flex !important;
+	flex-direction: column !important;
+	gap: 1rem !important;
+}
+
+.gtnet-footer ul li {
+	margin: 0 !important;
+}
+
+.gtnet-footer ul li a {
+	font-size: 0.75rem !important;
+	font-weight: 700 !important;
+	color: #64748b !important;
+	text-decoration: none !important;
+	transition: color 0.2s !important;
+}
+
+.gtnet-footer ul li a:hover {
+	color: #ffffff !important;
+}
+
+.gtnet-footer .pt-12 {
+	padding-top: 3rem !important;
+	border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+	display: flex !important;
+	flex-direction: column !important;
+	justify-content: space-between !important;
+	align-items: center !important;
+	gap: 1.5rem !important;
+}
+
+@media (min-width: 768px) {
+	.gtnet-footer .pt-12 {
+		flex-direction: row !important;
+	}
+}
+
+.gtnet-footer .pt-12 p {
+	font-size: 0.625rem !important;
+	font-weight: 900 !important;
+	letter-spacing: 0.1em !important;
+	margin: 0 !important;
+	color: #64748b !important;
+}
