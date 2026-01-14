@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - V2
     paths:
       - 'wordpress/wp-content/themes/swell_child/**'
       - 'wordpress/wp-content/themes/swell-child/**'
