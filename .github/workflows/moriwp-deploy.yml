@@ -5,6 +5,7 @@ on:
     branches:
       - main
     paths:
+      - 'wordpress/wp-content/themes/swell_child/**'
       - 'wordpress/wp-content/themes/swell-child/**'
       - '.github/workflows/moriwp-deploy.yml'
 
@@ -33,15 +34,20 @@ jobs:
           set -euo pipefail
           echo "=== Pre-deployment checks ==="
           
-          # テーマディレクトリ存在チェック
-          if [ ! -d "wordpress/wp-content/themes/swell-child" ]; then
-            echo "ERROR: wordpress/wp-content/themes/swell-child が存在しません"
+          # テーマディレクトリを検出（swell-child または swell_child）
+          THEME_DIR=""
+          if [ -d "wordpress/wp-content/themes/swell-child" ]; then
+            THEME_DIR="swell-child"
+          elif [ -d "wordpress/wp-content/themes/swell_child" ]; then
+            THEME_DIR="swell_child"
+          else
+            echo "ERROR: swell-child または swell_child テーマディレクトリが存在しません"
             exit 1
           fi
-          echo "✓ Theme directory exists"
+          echo "✓ Theme directory found: ${THEME_DIR}"
           
           # functions.php存在チェック
-          if [ ! -f "wordpress/wp-content/themes/swell-child/functions.php" ]; then
+          if [ ! -f "wordpress/wp-content/themes/${THEME_DIR}/functions.php" ]; then
             echo "ERROR: functions.php が存在しません"
             exit 1
           fi
@@ -49,7 +55,7 @@ jobs:
           
           # PHP構文チェック
           echo "=== PHP syntax check ==="
-          if ! php -l wordpress/wp-content/themes/swell-child/functions.php; then
+          if ! php -l "wordpress/wp-content/themes/${THEME_DIR}/functions.php"; then
             echo "ERROR: functions.php に構文エラーがあります"
             exit 1
           fi
@@ -57,12 +63,12 @@ jobs:
           
           # 禁止パターンチェック
           echo "=== Pattern check ==="
-          if grep -r "<style>" wordpress/wp-content/themes/swell-child/ --include="*.php" 2>/dev/null; then
+          if grep -r "<style>" "wordpress/wp-content/themes/${THEME_DIR}/" --include="*.php" 2>/dev/null; then
             echo "WARNING: <style>タグが検出されました（通常はCSSファイルに記述）"
           fi
           
           # PHP開始タグチェック
-          PHP_FILES=$(find wordpress/wp-content/themes/swell-child -name "*.php" -type f)
+          PHP_FILES=$(find "wordpress/wp-content/themes/${THEME_DIR}" -name "*.php" -type f)
           for file in $PHP_FILES; do
             if ! head -1 "$file" | grep -q "^<?php"; then
               echo "WARNING: $file の最初に <?php タグがありません"
@@ -74,10 +80,19 @@ jobs:
         run: |
           set -euo pipefail
           echo "=== Packaging theme ==="
+          # テーマディレクトリを検出
+          if [ -d "wordpress/wp-content/themes/swell-child" ]; then
+            THEME_DIR="swell-child"
+          elif [ -d "wordpress/wp-content/themes/swell_child" ]; then
+            THEME_DIR="swell_child"
+          else
+            echo "ERROR: テーマディレクトリが見つかりません"
+            exit 1
+          fi
           cd wordpress/wp-content/themes
-          tar -czf ../../../swell-child.tar.gz swell-child
+          tar -czf ../../../swell-child.tar.gz "${THEME_DIR}"
           cd ../../..
-          echo "Package created: swell-child.tar.gz"
+          echo "Package created: swell-child.tar.gz (from ${THEME_DIR})"
           ls -lh swell-child.tar.gz
 
       - name: Upload to server
@@ -110,7 +125,7 @@ jobs:
             fi
             echo "✓ WordPress root confirmed: \${WP_PATH}"
             
-            # テーマディレクトリのパス
+            # テーマディレクトリのパス（サーバー側は swell-child に統一）
             THEME_PATH="\${WP_PATH}/wp-content/themes/swell-child"
             
             echo "=== Creating backup ==="
