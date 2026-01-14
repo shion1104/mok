@@ -1,4 +1,4 @@
-name: Deploy WordPress to Sakura Server (moriwp)
+name: Deploy WordPress to Sakura
 
 on:
   push:
@@ -12,32 +12,65 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
-      
-      - name: Deploy to Sakura Server
-        uses: appleboy/scp-action@master
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
         with:
-          host: ${{ secrets.SAKURA_HOST }}
-          username: ${{ secrets.SAKURA_USERNAME }}
-          key: ${{ secrets.SAKURA_SSH_KEY }}
-          port: ${{ secrets.SAKURA_PORT || 22 }}
-          source: "wordpress/*"
-          target: "~/www/wordpress/"
-          strip_components: 1
-          rm: false
-      
-      - name: Set permissions on Sakura Server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SAKURA_HOST }}
-          username: ${{ secrets.SAKURA_USERNAME }}
-          key: ${{ secrets.SAKURA_SSH_KEY }}
-          port: ${{ secrets.SAKURA_PORT || 22 }}
-          script: |
-            cd ~/www
-            chmod -R 755 wordpress/
-            chmod 644 wordpress/wp-config.php
-            echo "Deployment to moriwp completed successfully!"
+          ssh-private-key: ${{ secrets.SAKURA_SSH_KEY }}
+
+      - name: Trust host
+        run: |
+          set -e
+          mkdir -p ~/.ssh
+          HOST_CLEAN="$(printf '%s' "${{ secrets.SAKURA_HOST }}" | tr -d '\r\n' | xargs)"
+          ssh-keyscan -H "$HOST_CLEAN" >> ~/.ssh/known_hosts
+
+      - name: Debug WordPress folder
+        run: |
+          set -e
+          echo "=== root ==="
+          ls -la
+          echo "=== wordpress ==="
+          ls -la wordpress || true
+          echo "=== wordpress/wp-content ==="
+          ls -la wordpress/wp-content || true
+
+      - name: Package & Upload WordPress
+        run: |
+          set -euo pipefail
+          USER_CLEAN="$(printf '%s' "${{ secrets.SAKURA_USER }}" | tr -d '\r\n' | xargs)"
+          HOST_CLEAN="$(printf '%s' "${{ secrets.SAKURA_HOST }}" | tr -d '\r\n' | xargs)"
+          # WordPressディレクトリ存在チェック
+          if [ ! -d "wordpress" ]; then
+            echo "ERROR: wordpress ディレクトリが存在しません"
+            exit 1
+          fi
+          # 圧縮（wp-config.phpは除外して、サーバー上のものを保持）
+          tar -czf wordpress.tar.gz \
+            --exclude='wordpress/wp-config.php' \
+            --exclude='wordpress/.DS_Store' \
+            --exclude='wordpress/wp-content/uploads' \
+            -C . wordpress
+          # 転送
+          ssh "${USER_CLEAN}@${HOST_CLEAN}" "mkdir -p ~/tmp"
+          scp wordpress.tar.gz "${USER_CLEAN}@${HOST_CLEAN}:~/tmp/wordpress.tar.gz"
+
+      - name: Extract on server
+        run: |
+          set -euo pipefail
+          USER_CLEAN="$(printf '%s' "${{ secrets.SAKURA_USER }}" | tr -d '\r\n' | xargs)"
+          HOST_CLEAN="$(printf '%s' "${{ secrets.SAKURA_HOST }}" | tr -d '\r\n' | xargs)"
+          WP_PATH_CLEAN="$(printf '%s' "${{ secrets.WP_PATH }}" | tr -d '\r\n' | xargs)"
+          ssh "${USER_CLEAN}@${HOST_CLEAN}" \
+            "cd ~/www && \
+             mkdir -p wordpress-backup && \
+             cp -r wordpress wordpress-backup/wordpress.backup.\$(date +%Y%m%d_%H%M%S) && \
+             tar -xzf ~/tmp/wordpress.tar.gz -C . && \
+             chmod -R 755 wordpress/ && \
+             chmod 644 wordpress/wp-config.php && \
+             rm -f ~/tmp/wordpress.tar.gz && \
+             echo 'Deployment completed successfully!'"
