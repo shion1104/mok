@@ -51,27 +51,29 @@ jobs:
             echo "ERROR: wordpress ディレクトリが存在しません"
             exit 1
           fi
-          # 圧縮（投稿・コメントデータは除外、テーマ・プラグイン・設定ファイルのみ）
-          tar -czf wordpress.tar.gz \
-            --exclude='wordpress/wp-config.php' \
-            --exclude='wordpress/.DS_Store' \
-            --exclude='wordpress/wp-content/uploads' \
-            --exclude='wordpress/wp-content/cache' \
-            --exclude='wordpress/wp-content/upgrade' \
-            --exclude='wordpress/wp-content/backup*' \
-            --exclude='wordpress/wp-content/backups' \
-            --exclude='wordpress/wp-content/debug.log' \
-            --exclude='wordpress/wp-content/advanced-cache.php' \
-            --exclude='wordpress/wp-content/wp-cache-config.php' \
-            -C . wordpress/wp-content/themes \
-            -C . wordpress/wp-content/plugins \
-            -C . wordpress/wp-includes \
-            -C . wordpress/wp-admin \
-            -C . wordpress/wp-*.php \
-            -C . wordpress/xmlrpc.php \
-            -C . wordpress/index.php \
-            -C . wordpress/license.txt \
-            -C . wordpress/readme.html
+          # 圧縮（投稿・コメントデータは除外、テーマ・プラグイン・コアファイルのみ）
+          cd wordpress
+          tar -czf ../wordpress.tar.gz \
+            --exclude='wp-config.php' \
+            --exclude='.DS_Store' \
+            --exclude='wp-content/uploads' \
+            --exclude='wp-content/cache' \
+            --exclude='wp-content/upgrade' \
+            --exclude='wp-content/backup*' \
+            --exclude='wp-content/backups' \
+            --exclude='wp-content/debug.log' \
+            --exclude='wp-content/advanced-cache.php' \
+            --exclude='wp-content/wp-cache-config.php' \
+            wp-content/themes \
+            wp-content/plugins \
+            wp-includes \
+            wp-admin \
+            wp-*.php \
+            xmlrpc.php \
+            index.php \
+            license.txt \
+            readme.html
+          cd ..
           # 転送
           ssh "${USER_CLEAN}@${HOST_CLEAN}" "mkdir -p ~/tmp"
           scp wordpress.tar.gz "${USER_CLEAN}@${HOST_CLEAN}:~/tmp/wordpress.tar.gz"
