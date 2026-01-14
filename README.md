@@ -28,12 +28,31 @@ git push origin main
 
 GitHubリポジトリの **Settings** → **Secrets and variables** → **Actions** で以下を設定してください：
 
-| Secret名 | 説明 | 例 |
+| Secret名 | 説明 | 値 |
 |---------|------|-----|
-| `SAKURA_SSH_KEY` | SSH秘密鍵の内容 | `-----BEGIN OPENSSH PRIVATE KEY-----...` |
+| `SAKURA_SSH_KEY` | SSH秘密鍵の内容 | `-----BEGIN OPENSSH PRIVATE KEY-----...`（後述の手順で生成） |
 | `SAKURA_HOST` | サーバーのホスト名 | `nichicoma.sakura.ne.jp` |
-| `SAKURA_USER` | SSH接続ユーザー名 | `nichicoma` |
-| `WP_PATH` | WordPressのルートパス | `~/www` または `/home/nichicoma/www` |
+| `SAKURA_USER` | SSH接続ユーザー名 | `v3` |
+| `WP_PATH` | WordPressのルートパス | `~/www` または `/home/v3/www` |
+
+**SSH鍵の生成と設定：**
+
+1. SSH鍵を生成：
+   ```bash
+   ssh-keygen -t ed25519 -C "github-actions-sakura" -f ~/.ssh/id_ed25519_sakura
+   ```
+
+2. 公開鍵をサーバーに追加：
+   ```bash
+   ssh-copy-id -i ~/.ssh/id_ed25519_sakura.pub v3@nichicoma.sakura.ne.jp
+   ```
+   パスワード `Adminmilk123!` を入力
+
+3. 秘密鍵の内容をGitHub Secretsに設定：
+   ```bash
+   cat ~/.ssh/id_ed25519_sakura
+   ```
+   この内容全体を`SAKURA_SSH_KEY`に設定
 
 ### Git Hooks設定（ローカルチェック）
 
@@ -69,11 +88,11 @@ git config core.hooksPath .githooks
 **対処法：**
 1. サーバーにSSH接続してWordPressのルートパスを確認：
    ```bash
-   ssh nichicoma@nichicoma.sakura.ne.jp
+   ssh v3@nichicoma.sakura.ne.jp
    cd ~/www
    ls -la wp-content  # これが存在することを確認
    ```
-2. GitHub Secretsの`WP_PATH`を正しいパスに更新（例: `~/www` または `/home/nichicoma/www`）
+2. GitHub Secretsの`WP_PATH`を正しいパスに更新（例: `~/www` または `/home/v3/www`）
 
 ### 2. テーマ名が違う
 
@@ -99,8 +118,13 @@ git config core.hooksPath .githooks
 1. GitHub Secretsの`SAKURA_SSH_KEY`が正しく設定されているか確認
 2. SSH鍵がサーバーの`~/.ssh/authorized_keys`に追加されているか確認：
    ```bash
-   ssh-copy-id -i ~/.ssh/id_rsa.pub nichicoma@nichicoma.sakura.ne.jp
+   ssh-copy-id -i ~/.ssh/id_ed25519_sakura.pub v3@nichicoma.sakura.ne.jp
    ```
+3. SSH接続テスト：
+   ```bash
+   ssh -i ~/.ssh/id_ed25519_sakura v3@nichicoma.sakura.ne.jp
+   ```
+   パスワードなしで接続できればOK
 
 ## 開発環境
 
